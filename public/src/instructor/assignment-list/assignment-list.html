@@ -1,0 +1,50 @@
+<div class="row-fluid">
+  <!-- data table -->
+  <div class="span1">  </div>
+  <div class="span10">
+  <ui-view>
+  <div class="widget-box">
+    <div class="widget-content">
+    <div id="DataTables_Table_0_length" class="dataTables_length">
+            <div class="container span 12">
+              <label>
+                Search:
+                <input type="text" autocomplete="off" class="select2-input" tabindex="0"
+                        ng-model="searchKey">
+              </label>
+            </div>
+            <div class="container">
+                  <button class="btn btn-success" ui-sref="">+ New Assignment</button>
+            </div>
+            <!-- end of search -->
+
+    </div>
+    <div ng-repeat="item in instructorAssignListCtrl.assignments | filter:searchKey" class="collapsible">
+      <div class="widget-title">
+        <a href="javascript:;" data-target="#{{item.assignmentGroupId}}" data-toggle="collapse" class="collapse">
+          <span class="icon"><i class="icon-arrow-right"></i></span>
+        <h5>{{item.name}} - ID: {{item.assignmentGroupId}}</h5>
+        </a>
+      </div>
+      <div class="collapse" id="{{item.assignmentGroupId}}">
+        <list-table
+              name="item.name"
+              instructor="instructorAssignListCtrl.isInstructor"
+              title="instructorAssignListCtrl.title"
+              column="instructorAssignListCtrl.column"
+              detail="item.students"
+          ></list-table>
+      </div>
+
+    </div>
+  </ui-view>
+  </div>
+  </div>
+</div>
+<div class="span1"></div>
+</div>
+
+
+<script src="js/matrix.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<!--end-main-container-part-->

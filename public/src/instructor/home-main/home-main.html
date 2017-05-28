@@ -1,0 +1,34 @@
+<!--Action boxes-->
+  <div class="container-fluid">
+    <div class="quick-actions_homepage">
+      <ul class="quick-actions">
+        <action-box ng-repeat="item in instruHomeCtrl.actionBox"
+        action-box="item"></action-box>
+      </ul>
+    </div>
+<!--End-Action boxes-->
+
+    <hr/>
+    <div class="row-fluid">
+      <div class="span6">
+  <!-- To do list html -->
+        <!-- end of to do list -->
+        <to-do-list
+          to-do-list="instruHomeCtrl.toDoList"
+          title = "instruHomeCtrl.toDoListTitle"
+          ></to-do-list>
+      </div>
+      <!-- end of left pane -->
+      <div class="span6">
+        <!--  progress bar -->
+        <progress-bar
+          progress-table="instruHomeCtrl.progress.progressTable"
+          title = "instruHomeCtrl.progress.title"
+          ></progress-bar>
+        <!-- end of progress bar -->
+      </div><!-- end of right pane -->
+    </div>
+  </div>
+</div>
+
+<!--end-main-container-part-->

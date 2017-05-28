@@ -1,0 +1,14 @@
+<div class="widget-box">
+  <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+    <h5>{{$ctrl.title}}</h5>
+  </div>
+  <div class="widget-content">
+    <ul class="unstyled">
+      <li ng-repeat="item in $ctrl.progressTable track by $index"> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> {{$ctrl.progressTable[$index].rowTitle}} <span class="pull-right strong">{{$ctrl.progressTable[$index].value}}</span>
+        <div class="progress">
+          <div style="width: {{$ctrl.progressTable[$index].percent}}%;" class="bar"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

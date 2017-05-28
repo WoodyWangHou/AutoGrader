@@ -1,0 +1,63 @@
+<div class="widget-box">
+  <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+    <h5>{{$ctrl.name}}'s {{$ctrl.title}}</h5>
+  </div>
+  <div class="widget-content nopadding">
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
+      <!-- search -->
+        <div id="DataTables_Table_0_length" class="dataTables_length">
+                <div class="select2-search select2-input">
+                  <label>
+                    Search:
+                    <input type="text" autocomplete="off" class="select2-input" tabindex="0"
+                            ng-model="searchKey">
+                  </label>
+                </div>
+                <!-- end of search -->
+            </div>
+
+      <table class="table table-bordered data-table dataTable" id="DataTables_Table_0">
+      <!-- table title -->
+        <thead>
+          <tr role="row">
+            <th ng-repeat="item in $ctrl.column track by $index" class="ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 15%;">
+              <div class="DataTables_sort_wrapper">{{$ctrl.column[$index]}}<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+              </div>
+              <!-- assignment name -->
+            </th>
+          </tr>
+        </thead>
+        <!-- end of table title -->
+      <tbody role="alert" aria-live="polite" aria-relevant="all">
+          <tr ng-repeat= "item in $ctrl.detail | filter:searchKey" class="gradeA odd">
+              <td class=" sorting_1">
+                <a
+                  class="btn btn-mini btn-success"
+                  ng-if="!$ctrl.instructor"
+                  ui-sref="stuAssignments.form({assignmentId:item.assignmentId})">
+                {{item.matricNubmer || item.assignmentName}}
+                </a>
+                <a
+                  class="btn btn-mini btn-success"
+                  ng-if="$ctrl.instructor && item.assignmentName"
+                  ui-sref="instrStudents.form({assignmentId:item.assignmentId})">
+                {{item.matricNubmer || item.assignmentName}}
+                </a>
+                <a
+                  class="btn btn-mini btn-success"
+                  ng-if="$ctrl.instructor && !item.assignmentName"
+                  ui-sref="instrAssignments.form({assignmentId:item.assignmentId})">
+                {{item.matricNubmer || item.assignmentName}}
+                </a>
+              </td>
+              <td class=" ">{{item.name || item.description}}</td>
+              <td class=" ">{{item.submissionDate || item.deadline}}</td>
+              <td class="center ">{{item.scores || item.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+          <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
+            </div>
+          </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="widget-box">
+  <div class="widget-title">
+    <h5>{{$ctrl.title}}<h5>
+  </div>
+  <div class="widget-content nopadding">
+  <form action="#" method="get" class="form-horizontal">
+    <!-- Table columns -->
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+        <th ng-if="$ctrl.column" ng-repeat="item in $ctrl.column">{{item.titles}}
+        </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="odd gradeX">
+          <td ng-repeat="item in $ctrl.column">
+            <div class="control-group">
+            <div class="controls span12">
+            <input type="text" class="span11" placeholder="Ingredient" />
+            </div>
+            </div>
+          </td>
+
+        <td><div class="control-group">
+          <div class="controls span12">
+          <input type="text" class="span11" placeholder="e.g 8 mg" />
+        </div>
+      </div></td>
+      <td><div class="control-group">
+        <div class="controls span12">
+        <input type="text" class="span11" placeholder="e.g 48 mg" />
+      </div>
+    </div></td>
+    <td><div class="control-group">
+      <div class="controls span12">
+      <input type="text" class="span11" placeholder="e.g 8 mg" />
+    </div>
+  </div></td>
+  <td><div class="control-group">
+    <div class="controls span12">
+    <input type="text" class="span11" placeholder="signature" />
+  </div>
+</div></td>
+        </tr>
+
+        <tr class="odd gradeX">
+          <td><div class="control-group">
+            <div class="controls span12">
+            <input type="text" class="span11" placeholder="Ingredient" />
+          </div>
+        </div></td>
+        <td><div class="control-group">
+          <div class="controls span12">
+          <input type="text" class="span11" placeholder="e.g 8 mg" />
+        </div>
+      </div></td>
+      <td><div class="control-group">
+        <div class="controls span12">
+        <input type="text" class="span11" placeholder="e.g 48 mg" />
+      </div>
+    </div></td>
+    <td><div class="control-group">
+      <div class="controls span12">
+      <input type="text" class="span11" placeholder="e.g 8 mg" />
+    </div>
+  </div></td>
+  <td><div class="control-group">
+    <div class="controls span12">
+    <input type="text" class="span11" placeholder="signature" />
+  </div>
+</div></td>
+        </tr>
+
+        <tr class="odd gradeX">
+          <td><div class="control-group">
+            <div class="controls span12">
+            <input type="text" class="span11" placeholder="Ingredient" />
+          </div>
+        </div></td>
+        <td><div class="control-group">
+          <div class="controls span12">
+          <input type="text" class="span11" placeholder="e.g 8 mg" />
+        </div>
+      </div></td>
+      <td><div class="control-group">
+        <div class="controls span12">
+        <input type="text" class="span11" placeholder="e.g 48 mg" />
+      </div>
+    </div></td>
+    <td><div class="control-group">
+      <div class="controls span12">
+      <input type="text" class="span11" placeholder="e.g 8 mg" />
+    </div>
+  </div></td>
+  <td><div class="control-group">
+    <div class="controls span12">
+    <input type="text" class="span11" placeholder="signature" />
+  </div>
+</div></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </form>
+  </div>
+</div>

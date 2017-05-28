@@ -1,0 +1,24 @@
+    <div class="row-fluid">
+      <!-- data table -->
+      <div class="span12">
+        <!-- details assignment view -->
+        <ui-view>
+          <!-- assignment table -->
+          <list-table name="assignmentCtrl.username"
+                      instructor="assignmentCtrl.isInstructor"
+                      title="assignmentCtrl.title"
+                      column="assignmentCtrl.column"
+                      detail="assignmentCtrl.detail">
+          </list-table>
+
+        </ui-view>
+
+      <!-- end of data table -->
+    </div>
+    <!-- end of span 12 -->
+    </div>
+    <!-- end of content container -->
+
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/matrix.tables.js"></script>
+<!--end-main-container-part-->

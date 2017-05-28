@@ -1,0 +1,45 @@
+<div class="row-fluid">
+  <!-- data table -->
+  <div class="span1"></div>
+  <div class="span10">
+  <div class="widget-box">
+    <div class="widget-content">
+  <ui-view>
+    <div class="dataTables_length">
+            <div class="select2-search select2-input">
+              <label>
+                Search:
+                <input type="text" autocomplete="off" class="select2-input" tabindex="0"
+                        ng-model="searchKey">
+              </label>
+            </div>
+            <!-- end of search -->
+        </div>
+    <div ng-repeat="item in stuListCtrl.studentList | filter:searchKey" class="collapsible">
+      <div class="widget-title">
+        <a href="javascript:;" data-target="#{{item.matricNumber}}" data-toggle="collapse" class="collapse">
+          <span class="icon"><i class="icon-arrow-right"></i></span>
+        <h5>{{item.matricNumber}} - {{item.name}}</h5>
+        </a>
+      </div>
+      <div class="collapse" id="{{item.matricNumber}}">
+        <list-table
+              name="item.name"
+              instructor="stuListCtrl.isInstructor"
+              title="stuListCtrl.title"
+              column="stuListCtrl.column"
+              detail="item.assignmentList"
+          ></list-table>
+      </div>
+
+    </div>
+  </ui-view>
+</div>
+</div>
+</div>
+<div class="span1"></div>
+</div>
+
+<script src="js/matrix.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<!--end-main-container-part-->

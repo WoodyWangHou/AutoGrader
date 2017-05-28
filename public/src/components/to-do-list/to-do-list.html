@@ -1,0 +1,11 @@
+<div class="widget-box">
+  <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+    <h5>{{$ctrl.title}}</h5>
+  </div>
+  <div class="widget-content">
+    <div class="todo">
+      <ul>
+        <list-item ng-repeat="item in $ctrl.toDoList"
+                    list-item="item"></list-item>
+      </ul>
+    </div>

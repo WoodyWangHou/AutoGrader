@@ -1,0 +1,236 @@
+<div class="row-fluid">
+  <!-- data table -->
+  <div class="span2">
+  </div>
+  <div class="span8">
+    <!-- the material tab -->
+    <div class="widget-box collapsible">
+      <div class="widget-title"> <a href="javascript:;" data-target="#material" data-toggle="collapse"> <span class="icon"><i class="icon-arrow-right"></i></span>
+        <h5>Additional Materials</h5>
+        </a>
+      </div>
+      <div class="collapse" id="material">
+        <div class="widget-content"> {{$ctrl.additional}} </div>
+      </div>
+    </div>
+    <div class="widget-box">
+      <div class="widget-title"> <span class="icon"> <i class="icon-plus-sign"></i> </span>
+        <h5>THE PRESCRIPTION</h5>
+        </div>
+        <!-- Prescription form -->
+      <div class="widget-content nopadding">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <td colspan="4">
+                <img class="img-responsive img-rounded .center-block" ng-src ="{{$ctrl.detail.prescriptionUrl}}"></img>
+               </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end of prescription form -->
+      <!-- Static Input Formulation form-->
+      <div class="widget-box">
+        <div class="widget-title">
+          <h5>1. Formulation</h5>
+        </div>
+        <div class="widget-content nopadding">
+
+        <form action="#" method="get" class="form-horizontal">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name of Ingredient</th>
+                <th>Official Quantity (mg)</th>
+                <th>Quantity Used (mg)</th>
+                <th>Actual Quantity Weighted (mg)</th>
+                <th>Signed by Pharcist</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="item in $ctrl.form.formulation track by $index" class="odd gradeX">
+                <td>
+                  <div class="control-group">
+                  <div class="controls span12">
+                  <input type="text" class="span11" placeholder="Ingredient" ng-model="item.ingredient" />
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                <input type="text" class="span11"  ng-model="item.quantity"/>
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input type="text" class="span11"  ng-model="item.used" />
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input type="text" class="span11"  ng-model="item.actual"/>
+                </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input type="text" class="span11" placeholder="signature" />
+                </div>
+                </div>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+          </div>
+      </div>
+      <div class="widget-box">
+        <button class="btn btn-success pull-right" ng-click="$ctrl.addRow();">+</button>
+        <button class="btn btn-danger pull-right" ng-click="$ctrl.deleteRow();">-</button>
+      </div>
+      <div class="widget-box">
+        <div class="alert">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Note:</strong> Extra empty rows will be disregarded.
+        </div>
+      </div>
+      <!-- end of static table -->
+      <!-- Calculation text box -->
+      <div class="widget-box">
+        <div class="widget-title">
+          <h5>2. Calculation</h5>
+        </div>
+        <div class="widget-content">
+          <div class="control-group">
+            <form>
+              <div class="controls">
+                <textarea class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end of text box -->
+      <!-- Packing text box -->
+      <div class="widget-box">
+        <div class="widget-title">
+          <h5>3. Method</h5>
+        </div>
+        <div class="widget-content">
+          <div class="control-group">
+            <form>
+              <div class="controls">
+                <textarea class="textarea_editor span12" rows="6" ng-model="$ctrl.form.method"></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end of text box -->
+
+    <div class="row-fluid">
+      <!-- Packing text box -->
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title">
+            <h5>4. Packing</h5>
+          </div>
+          <div class="widget-content">
+            <div class="control-group">
+              <form>
+                <div class="controls">
+                  <textarea class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+      <!-- end of text box -->
+      <!-- Storage text box -->
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title">
+            <h5>5. Storage Condition</h5>
+          </div>
+          <div class="widget-content">
+            <div class="control-group">
+              <form>
+                <div class="controls">
+                  <span class="label label-warning">Please select your storage file here:</span><br>
+                  <small>Format: pdf, or image. <br>Click save or submit to upload the file</small>
+                  <input type="file" nv-file-select uploader="$ctrl.uploader" options="$ctrl.uploadeOptionStorage"/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+      <!-- end of text box -->
+  </div>
+  <!-- end of storage -->
+
+  <div class="row-fluid">
+    <!-- Main Label text box -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title">
+          <h5>6. Main Label</h5>
+        </div>
+        <div class="widget-content">
+          <div class="control-group">
+            <form>
+              <div class="controls">
+                <span class="label label-warning">Please select your main label file here:</span><br>
+                <small>Format: pdf, or image. <br>Click save or submit to upload the file</small>
+                <input type="file" nv-file-select uploader="$ctrl.uploader" options="$ctrl.uploadeOptionMainLabel"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+    <!-- end of text box -->
+    <!-- Auxiliary text box -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title">
+          <h5>7. Auxiliary Labels</h5>
+        </div>
+        <div class="widget-content">
+          <div class="control-group">
+            <form>
+              <div class="controls">
+                <span class="label label-warning">Please select your auxiliary label file here:</span><br>
+                <small>Format: pdf, or image. <br>Click save or submit to upload the file</small>
+                <input type="file" nv-file-select uploader="$ctrl.uploader" options="$ctrl.uploadeOptionAuxLabel"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+    <!-- end of label box -->
+</div>
+<!-- end of label -->
+<!-- assignment save -->
+<div class="form-actions">
+  <button type="submit" class="btn btn-warning">Save</button>
+  <button type="submit" class="btn btn-success">Submit</button>
+</div>
+<!-- end of save -->
+  </div>
+  <!-- end of data table -->
+</div>
+<!-- end of span 12 -->
+<div class="span2">
+</div>
+</div>

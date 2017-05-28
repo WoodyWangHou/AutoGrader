@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Matrix Admin</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+
+</head>
+<body ng-app="autograder" ng-strict-di>
+  <ui-view></ui-view>
+  <!-- lib -->
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/select2.min.js"></script>
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/angular-ui-router.min.js"></script>
+  <script src="lib/angular-css.js"></script>
+  <script src="lib/angular-file-upload.min.js"></script>
+ <!--  Grader Main Module -->
+  <script src= "src/auto-grader.module.js"></script>
+  <script src= "src/login/login.module.js"></script>
+  <script src= "src/student/student.module.js"></script>
+  <script src= "src/instructor/instructor.module.js"></script>
+  <script src= "src/services/service.module.js"></script>
+  <!--  controller -->
+  <script src= "src/login/login-main/login.controller.js"></script>
+  <script src= "src/student/assignment/assignment.controller.js"></script>
+  <script src= "src/student/home-main/home-main.controller.js"></script>
+  <script src= "src/dashboard/dashboard.controller.js"></script>
+  <script src= "src/student/assignment/assignment-form/assignment-form.controller.js"></script>
+  <script src= "src/instructor/home-main/home-main.controller.js"></script>
+  <script src= "src/instructor/student-list/student-list.controller.js"></script>
+  <script src= "src/instructor/assignment-form/assignment-form.controller.js"></script>
+  <script src= "src/instructor/assignment-list/assignment-list.controller.js"></script>
+  <!--  routes -->
+  <script src= "src/login/login.routes.js"></script>
+  <script src= "src/student/student.routes.js"></script>
+  <script src= "src/instructor/instructor.routes.js"></script>
+  <!-- components -->
+  <script src= "src/components/side-bar/side-bar-menu.component.js"></script>
+  <script src= "src/components/nav-header/nav-header.component.js"></script>
+  <script src= "src/components/action-box/action-box.component.js"></script>
+  <script src= "src/components/to-do-list/to-do-list.component.js"></script>
+  <script src= "src/components/to-do-list//list-item/list-item.component.js"></script>
+  <script src= "src/components/progress-bar/progress-bar.component.js"></script>
+  <script src= "src/components/list-table/list-table.component.js"></script>
+  <script src= "src/components/assignment-form/assignment-form.component.js"></script>
+  <!-- services -->
+  <script src= "src/services/download.student.service.js"></script>
+  <script src= "src/services/download.instructor.service.js"></script>
+  <script src= "src/services/upload.service.js"></script>
+</body>
+</html>
