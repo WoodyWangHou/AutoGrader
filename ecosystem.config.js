@@ -8,7 +8,13 @@ module.exports = {
     // First application
     {
       name      : 'test_server',
-      script    : 'app.js'
+      script    : './bin/www',
+      env: {
+        COMMON_VARIABLE: "true"
+      },
+      env_production : {
+        NODE_ENV: "production"
+      }
     }
   ],
 
