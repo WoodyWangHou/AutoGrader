@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name      : 'test_server',
-      script    : 'app.js',
+      script    : 'app.js'
     }
   ],
 
@@ -20,7 +20,7 @@ module.exports = {
     production : {
       user : 'ubuntu',
       host : 'ec2-54-169-84-78.ap-southeast-1.compute.amazonaws.com',
-      key: '~/.ssh/test-nusautograder.pem'
+      key: '~/.ssh/test-nusautograder.pem',
       ref  : 'test/master',
       repo : 'git@github.com:WoodyWangHou/test_NUSAutograder_server.git',
       path : '/test-server',
