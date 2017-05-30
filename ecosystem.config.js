@@ -29,7 +29,7 @@ module.exports = {
       key  : '~/.ssh/test-nusautograder.pem',
       ref  : 'origin/master',
       repo : 'git@github.com:WoodyWangHou/test_NUSAutograder_server.git',
-      path : '$path/test-server',
+      path : './test-server',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
