@@ -3,7 +3,7 @@
 
 angular.module('autograder')
 .component('spinner', {
-  templateUrl:'src/components/spinner/spinner.html',
+  // templateUrl:'src/components/spinner/spinner.html',
   controller: spinnerController
   });
 
@@ -15,18 +15,23 @@ function spinnerController ($rootScope){
 	$ctrl.$onInit = function(){
 		var cancel = $rootScope.$on('$stateChangeStart',
 			function(event,toState,toParams,fromState,fromParams){
+				NProgress.start();
 				$ctrl.isSpinnerOn = true;
 			});
 		cancellers.push(cancel);
 
 		var cancel = $rootScope.$on('$stateChangeSuccess',
 			function(event,toState,toParams,fromState,fromParams){
+				NProgress.done();
+  				NProgress.remove();
 				$ctrl.isSpinnerOn = false;
 			});
 		cancellers.push(cancel);
 
 		var cancel = $rootScope.$on('$stateChangeError',
 			function(event,toState,toParams,fromState,fromParams){
+				NProgress.done();
+  				NProgress.remove();
 				$ctrl.isSpinnerOn = false;
 			});
 		cancellers.push(cancel);
