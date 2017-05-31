@@ -4,16 +4,17 @@
 <title>Matrix Admin</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/spinner.css" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 
 </head>
 <body ng-app="autograder" ng-strict-di>
   <ui-view></ui-view>
+  <spinner></spinner>
   <!-- lib -->
   <script src="lib/jquery.min.js"></script>
   <script src="lib/bootstrap.min.js"></script>
-  <script src="lib/select2.min.js"></script>
   <script src="lib/angular.min.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
   <script src="lib/angular-css.js"></script>
@@ -24,6 +25,7 @@
   <script src= "src/student/student.module.js"></script>
   <script src= "src/instructor/instructor.module.js"></script>
   <script src= "src/services/service.module.js"></script>
+  <script src= "src/components/spinner/spinner.module.js"></script>
   <!--  controller -->
   <script src= "src/login/login-main/login.controller.js"></script>
   <script src= "src/student/assignment/assignment.controller.js"></script>
@@ -47,6 +49,7 @@
   <script src= "src/components/progress-bar/progress-bar.component.js"></script>
   <script src= "src/components/list-table/list-table.component.js"></script>
   <script src= "src/components/assignment-form/assignment-form.component.js"></script>
+  <script src= "src/components/spinner/spinner.component.js"></script>
   <!-- services -->
   <script src= "src/services/download.student.service.js"></script>
   <script src= "src/services/download.instructor.service.js"></script>

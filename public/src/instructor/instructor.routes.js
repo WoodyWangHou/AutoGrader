@@ -8,7 +8,6 @@
     function config($stateProvider,INSTRUCTOR_STATE){
       // If user goes to a path that doesn't exist, redirect to public root
       var cssList = [
-                "css/fullcalendar.css",
                 "css/matrix-style.css",
                 "css/matrix-media.css",
                 "font-awesome/css/font-awesome.css",

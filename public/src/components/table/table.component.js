@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('student')
+angular.module('autograder')
 .component('table', {
   templateUrl:'src/components/table/table.html',
   bindings:{

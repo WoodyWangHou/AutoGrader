@@ -1,7 +1,7 @@
 (function(){
 'use strict'
 
-  angular.module('autograder',['login','student','instructor','service'])
+  angular.module('autograder',['login','student','instructor','service','spinner'])
   .constant('baseAPI','localhost:3000')
   .config(config);
 

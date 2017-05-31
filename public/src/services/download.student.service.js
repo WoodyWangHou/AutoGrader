@@ -63,21 +63,21 @@ function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
       switch(states[i]){
         case 'form':
         temp = {
-           state:STUDENT_STATE.HOME_ASSIGNMENT,
+           toState:STUDENT_STATE.HOME_ASSIGNMENT,
            title:'Assignment Form',
            icon:STUDENT_STATE.HOME_ASSIGNMENT
          };
          break;
          case 'assignment':
          temp = {
-            state:STUDENT_STATE.HOME_ASSIGNMENT,
+            toState:STUDENT_STATE.HOME_ASSIGNMENT,
             title:'Assignments',
             icon:STUDENT_STATE.HOME_ASSIGNMENT
           };
           break;
         default:
         temp = {
-           state:STUDENT_STATE.HOME,
+           toState:STUDENT_STATE.HOME,
            title:'Home',
            icon:STUDENT_STATE.HOME
          };

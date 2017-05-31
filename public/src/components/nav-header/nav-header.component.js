@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('student')
+angular.module('autograder')
 .component('navHeader', {
   templateUrl:'src/components/nav-header/nav-header.html',
   bindings:{

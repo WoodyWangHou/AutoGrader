@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('student')
+angular.module('autograder')
 .component('assignmentForm', {
   templateUrl:'src/components/assignment-form/assignment-form.html',
   bindings:{

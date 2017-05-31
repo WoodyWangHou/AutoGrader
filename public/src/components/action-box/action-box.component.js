@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('student')
+angular.module('autograder')
 .component('actionBox', {
   templateUrl:'src/components/action-box/action-box.html',
   bindings:{
