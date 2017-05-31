@@ -22,14 +22,14 @@ function spinnerController ($rootScope){
 		var cancel = $rootScope.$on('$stateChangeSuccess',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.done();
-  				// NProgress.remove();
+  				NProgress.remove();
 			});
 		cancellers.push(cancel);
 
 		var cancel = $rootScope.$on('$stateChangeError',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.done();
-  				// NProgress.remove();
+  				NProgress.remove();
 			});
 		cancellers.push(cancel);
 	};
