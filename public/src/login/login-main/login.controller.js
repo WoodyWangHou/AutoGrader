@@ -15,13 +15,11 @@
       // console.log("username is: ", $ctrl.username);
       // console.log("password is: ", $ctrl.password);
       let tempName = $ctrl.username.toLowerCase();
-      $timeout(function(){
               if(tempName.indexOf('instructor')!= -1){
                 $state.go('instructor');
               }else{
                 $state.go('student');
               }
-            },1000);
     };
 
     $ctrl.valid = function() {

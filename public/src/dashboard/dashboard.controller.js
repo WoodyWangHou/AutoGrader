@@ -34,7 +34,7 @@
         }
       }
 
-      $rootScope.$on('$stateChangeStart', function(event,toState,toParams,fromState,fromParams){
+      $rootScope.$on('$stateChangeSuccess', function(event,toState,toParams,fromState,fromParams){
         for(var key in STUDENT_STATE){
           if(STUDENT_STATE[key]==toState.name){
             $ctrl.menus = userInterfaceInitService.getStudentMenu(toState.name);

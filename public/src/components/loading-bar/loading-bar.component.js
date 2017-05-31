@@ -2,7 +2,7 @@
 "use strict";
 
 angular.module('autograder')
-.component('spinner', {
+.component('loadingBar', {
   // templateUrl:'src/components/spinner/spinner.html',
   controller: spinnerController
   });
@@ -12,27 +12,24 @@ function spinnerController ($rootScope){
 	var $ctrl = this;
 	var cancellers = [];
 
-	$ctrl.$onInit = function(){
+	$ctrl.$postLink = function(){
 		var cancel = $rootScope.$on('$stateChangeStart',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.start();
-				$ctrl.isSpinnerOn = true;
 			});
 		cancellers.push(cancel);
 
 		var cancel = $rootScope.$on('$stateChangeSuccess',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.done();
-  				NProgress.remove();
-				$ctrl.isSpinnerOn = false;
+  				// NProgress.remove();
 			});
 		cancellers.push(cancel);
 
 		var cancel = $rootScope.$on('$stateChangeError',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.done();
-  				NProgress.remove();
-				$ctrl.isSpinnerOn = false;
+  				// NProgress.remove();
 			});
 		cancellers.push(cancel);
 	};
