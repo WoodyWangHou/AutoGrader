@@ -11,7 +11,7 @@ spinnerController.$inject = ['$rootScope'];
 function spinnerController ($rootScope){
 	var $ctrl = this;
 	var cancellers = [];
-
+	console.log(NProgress);
 	$ctrl.$onInit = function(){
 		var cancel = $rootScope.$on('$stateChangeStart',
 			function(event,toState,toParams,fromState,fromParams){
