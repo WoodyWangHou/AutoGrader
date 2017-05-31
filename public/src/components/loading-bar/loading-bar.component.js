@@ -12,7 +12,7 @@ function spinnerController ($rootScope){
 	var $ctrl = this;
 	var cancellers = [];
 
-	$ctrl.$postLink = function(){
+	$ctrl.$onInit = function(){
 		var cancel = $rootScope.$on('$stateChangeStart',
 			function(event,toState,toParams,fromState,fromParams){
 				NProgress.start();
