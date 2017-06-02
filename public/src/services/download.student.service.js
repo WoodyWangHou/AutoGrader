@@ -101,23 +101,82 @@ function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
     return service.actionBox;
   }
 
-  service.getAssignmentSubmissionProgress = function(){
-    return {
-        title:"Progress",
-        row1:"New Assignments",
-        item1:(newAssign/total)*100,
-        row2:"In Progress",
-        item2:(progress/total)*100,
-        row3:"Submitted",
-        item3:(submitted/total)*100,
-        row4:"Evaluated",
-        item4:(evaluated/total)*100,
-        row1Length:newAssign,
-        row2Length:progress,
-        row3Length:submitted,
-        row4Length:evaluated
-      };
+
+  service.getProgress = function(){
+      var progress = setProgressTable();
+      setProgressTitle("Assignments Progress",progress);
+
+      return progress;
+
   }
+
+  var setProgressTitle = function(title,table){
+    table.title = title;
+  }
+
+  var setProgressTable = function(){
+      var progress = [];
+
+      progress.push(getProgressTable("newAssign"));
+      progress.push(getProgressTable("progress"));
+      progress.push(getProgressTable("submitted"));
+      progress.push(getProgressTable("evaluated"));
+
+      return progress;
+  }
+
+  var getProgressTable = function(metric){
+    var assignments = service.getStudentAssignmentById('A0078679A');
+
+    var metricValue = getSubissionResult(assignments);
+    var temp = {};
+
+    switch(metric){
+      case "newAssign":
+          temp.rowTitle = "New Assignments";
+          temp.percent = (metricValue.newAssign/metricValue.total)*100;
+          temp.value = metricValue.newAssign+"/"+metricValue.total;
+      break;
+      case "progress":
+          temp.rowTitle = "In Progress";
+          temp.percent = (metricValue.progress/metricValue.total)*100;
+          temp.value = metricValue.progress+"/"+metricValue.total;
+      break;
+      case "submitted":
+          temp.rowTitle = "Submitted";
+          temp.percent = (metricValue.submitted/metricValue.total)*100;
+          temp.value = metricValue.submitted+"/"+metricValue.total;
+      break;
+      case "evaluated":
+          temp.rowTitle = "Evaluated";
+          temp.percent = (metricValue.evaluated/metricValue.total)*100;
+          temp.value = metricValue.evaluated+"/"+metricValue.total;
+      break;
+    }
+
+    return temp;
+  }
+
+  var getSubissionResult = function(assignments){
+      var result = {};
+
+      result.newAssign = 0;
+      result.progress = 0;
+      result.submitted = 0;
+      result.evaluated = 0;
+      result.total = assignments.length;
+
+        for(var i = 0; i <assignments.length; i++){
+        if(assignments[i].scores && assignments[i].scores>0) result.evaluate++;
+        else if(assignments[i].submissionDate) result.submitted++;
+        else if(assignments[i].inProgress) result.progress++;
+        else result.newAssign++;
+        }
+
+        console.log(assignments);
+        return result;
+  }
+
 
   service.getStudentAssignmentById = function(studentId){
     // to implement $http service
@@ -231,7 +290,6 @@ function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
           prescriptionUrl:"img/Prescription.jpg"
         }];
   }
-    service.assignment.title = "Assignment List";
     return service.assignment;
   }
 
