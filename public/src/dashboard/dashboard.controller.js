@@ -44,7 +44,8 @@
         for(var key in INSTRUCTOR_STATE){
           if(INSTRUCTOR_STATE[key]==toState.name){
             $ctrl.menus = instructorInterfaceInitService.getInstructorMenu(toState.name);
-            $ctrl.nav = instructorInterfaceInitService.getInstructorNav(toState.name,fromState.name);
+            $ctrl.nav = instructorInterfaceInitService.getInstructorNav(toState.name);
+            console.log("toState is",toState);
           }
         }
     });

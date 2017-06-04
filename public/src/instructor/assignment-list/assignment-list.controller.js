@@ -2,8 +2,8 @@
     angular.module('instructor')
     .controller('instrucAssignmentListController',instrucAssignmentListController);
 
-    instrucAssignmentListController.$inject = ['instructorInterfaceInitService','userInterfaceInitService'];
-    function instrucAssignmentListController(instructorInterfaceInitService,userInterfaceInitService) {
+    instrucAssignmentListController.$inject = ['instructorInterfaceInitService','userInterfaceInitService','$stateParams'];
+    function instrucAssignmentListController(instructorInterfaceInitService,userInterfaceInitService,$stateParams) {
       var $ctrl = this;
       var ui = new UIInit();
 

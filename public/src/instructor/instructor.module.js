@@ -13,7 +13,10 @@
   .constant('INSTRUCTOR_ICON',{
       HOME:"home",
       HOME_STUDENT:"group",
-      HOME_ASSIGNMENT:"pencil"
+      HOME_ASSIGNMENT:"pencil",
+      HOME_STUDENT_FORM:"book",
+      HOME_ASSIGNMENT_FORM:"book",
+      HOME_ASSIGNMENT_CREATE:"edit"
     });
 
 })();

@@ -7,14 +7,6 @@
     config.$inject=['$stateProvider','INSTRUCTOR_STATE'];
     function config($stateProvider,INSTRUCTOR_STATE){
       // If user goes to a path that doesn't exist, redirect to public root
-      var cssList = [
-                "css/matrix-style.css",
-                "css/matrix-media.css",
-                "font-awesome/css/font-awesome.css",
-                "css/jquery.gritter.css",
-                'http://fonts.googleapis.com/css?family=Open+Sans:400,700,800'
-              ];
-
       $stateProvider
         .state('instructor_init',{
           url:'/instructor',
@@ -28,38 +20,39 @@
           url:'/home',
           templateUrl: 'src/instructor/home-main/home-main.html',
           controller: 'instruHomeController',
-          controllerAs: 'instruHomeCtrl',
-          css:cssList
+          controllerAs: 'instruHomeCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_STUDENT, {
           parent:'instructor_init',
           url: '/students',
           templateUrl: 'src/instructor/student-list/student-list.html',
           controller: 'studentListController',
-          controllerAs: 'stuListCtrl',
-          css:cssList
+          controllerAs: 'stuListCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_STUDENT_FORM, {
           url: '/:assignmentId',
           templateUrl: 'src/instructor/assignment-form/assignment-form.html',
           controller: 'instruAssignmentFormController',
-          controllerAs: 'instructorFormCtrl',
-          css:cssList
+          controllerAs: 'instructorFormCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_ASSIGNMENT, {
           parent:'instructor_init',
           url:'/assignments',
           templateUrl: 'src/instructor/assignment-list/assignment-list.html',
           controller: 'instrucAssignmentListController',
-          controllerAs: 'instructorAssignListCtrl',
-          css:cssList
+          controllerAs: 'instructorAssignListCtrl'
+        })
+        .state(INSTRUCTOR_STATE.HOME_ASSIGNMENT_CREATE, {
+          url:'/create_assignment',
+          templateUrl: 'src/instructor/assignment-create/assignment-create.html',
+          controller: 'assignmentCreateController',
+          controllerAs: 'assignCrtCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_ASSIGNMENT_FORM, {
           url:'/:assignmentId',
           templateUrl: 'src/instructor/assignment-form/assignment-form.html',
           controller: 'instruAssignmentFormController',
-          controllerAs: 'instructorFormCtrl',
-          css:cssList
+          controllerAs: 'instructorFormCtrl'
         })
         ;
       }

@@ -1,0 +1,57 @@
+<div class="row-fluid">
+  <!-- data table -->
+  <div class="span2">
+  </div>
+  <div class="span8">
+    <!-- the material tab -->
+    <div class="widget-box">
+      <div class="widget-title"><span class="icon"><i class="icon-arrow-right"></i></span>
+        <h5>Additional Materials</h5>
+      </div>
+      <!-- input box -->
+        <div class="widget-content">
+            <div class="control-group">
+              <form>
+                <div class="controls">
+                  <textarea class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                </div>
+              </form>
+            </div>
+        </div>
+    <!-- input box -->
+    </div>
+    <div class="widget-box">
+      <div class="widget-title"> <span class="icon"> <i class="icon-plus-sign"></i> </span>
+        <h5>THE PRESCRIPTION</h5>
+        </div>
+        <!-- uploader -->
+        <div class="widget-box">
+          <div class="widget-content">
+            <div class="control-group">
+              <form>
+                <div class="controls">
+                  <span class="label label-warning">Please select your storage file here:</span><br>
+                  <small>Format: pdf, or image. Click save or submit to upload the file</small><br>
+                  <input type="file" nv-file-select uploader="$ctrl.uploader" options="$ctrl.uploadeOptionStorage"/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    <!-- end of uploader -->
+  <div class="row-fluid">
+</div>
+<!-- end of label -->
+<!-- assignment save -->
+<div class="form-actions">
+  <button type="submit" class="btn btn-warning">Save</button>
+  <button type="submit" class="btn btn-success">Submit</button>
+</div>
+<!-- end of save -->
+  </div>
+  <!-- end of data table -->
+</div>
+<!-- end of span 12 -->
+<div class="span2">
+</div>
+</div>

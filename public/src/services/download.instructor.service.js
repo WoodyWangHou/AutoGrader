@@ -68,38 +68,44 @@ function instructorInterfaceInitService(
         break;
         case INSTRUCTOR_STATE.HOME_ASSIGNMENT:
         case INSTRUCTOR_STATE.HOME_ASSIGNMENT_FORM:
+        case INSTRUCTOR_STATE.HOME_ASSIGNMENT_CREATE:
         service.menu[2].class += " active";
         break;
         case INSTRUCTOR_STATE.HOME_STUDENT:
+        case INSTRUCTOR_STATE.HOME_STUDENT_FORM:
         service.menu[1].class += " active";
         break;
       }
       return service.menu;
   }
 
-  service.getInstructorNav = function(toState,fromState){
+  service.getInstructorNav = function(toState){
     var toStates = toState.split('.');
     var containsHome = false;
 
-    if(!isContainHomeState(toStates)){
-      return setMenu(toStates,containsHome);
-    }else{
-      return setMenu(toStates,!containsHome);
+      return setMenu(toStates);
     }
-  }
 
-  var setMenu = function(states,containsHome){
+  var setMenu = function(toStates){
     var navs = [];
     var temp = {};
 
-    if(!containsHome){
+    if(!isContainHomeState(toStates)){
       navs.push(addMenuActive(INSTRUCTOR_STATE.HOME));
     }
 
-    for(var i = 0;i<states.length;i++){
-      navs.push(addMenuActive(states[i]));
+
+    for(var i = 0;i<toStates.length;i++){
+      if(toStates[i] == 'form'){
+          if(toStates.indexOf(INSTRUCTOR_STATE.HOME_STUDENT)!=-1){
+            navs.push(addMenuActive('stuForm'));
+          }else{
+            navs.push(addMenuActive(toStates[i]));
+          }
+      }else{
+        navs.push(addMenuActive(toStates[i]));
+      }
     }
-    
     return navs;
   }
 
@@ -107,12 +113,26 @@ function instructorInterfaceInitService(
     var temp = {};
 
     switch(state){
+          case 'create':
+            temp = {
+              toState:INSTRUCTOR_STATE.HOME_ASSIGNMENT_CREATE,
+              title:'New Assignment',
+              icon:INSTRUCTOR_ICON.HOME_ASSIGNMENT_CREATE
+            };
+          break;
+        case 'stuForm':
+          temp = {
+               toState:INSTRUCTOR_STATE.HOME_STUDENT_FORM,
+               title:'Assignment Form',
+               icon:INSTRUCTOR_ICON.HOME_STUDENT_FORM
+             };
+        break;
         case 'form':
-        temp = {
-           toState:INSTRUCTOR_STATE.HOME_STUDENT_FORM,
-           title:'Assignment Form',
-           icon:INSTRUCTOR_ICON.HOME_STUDENT_FORM
-         };
+          temp = {
+             toState:INSTRUCTOR_STATE.HOME_ASSIGNMENT_FORM,
+             title:'Assignment Form',
+             icon:INSTRUCTOR_ICON.HOME_ASSIGNMENT_FORM
+           };
          break;
          case 'instrAssignments':
          temp = {
@@ -354,13 +374,23 @@ function instructorInterfaceInitService(
     }
   } 
 
-  // var isAssignment(assignment,assignmenGroupId){
-  //   if(assignment.assignmentGroupId == assignmentGroupId){
-  //     return true;
-  //   }else {
-  //     return false;
-  //   }
-  // }
+    service.getNewAssignmentId = function(){
+      //ajax to backend and get a new id
+      const ID_LENGTH = 22;
 
+      return random_base64(ID_LENGTH);
+    }
+
+    var random_base64 = function(length){
+      var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+      var str="";
+
+      for(var i =0;i<length;i++){
+        var rand = Math.floor((Math.random()*Date.now())%1*ALPHABET.length);
+        str += ALPHABET.slice(rand,rand+1);
+      }
+
+      return str;
+    }
 }
 })();
