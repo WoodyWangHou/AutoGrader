@@ -13,7 +13,12 @@
             <div class="control-group">
               <form>
                 <div class="controls">
-                  <textarea class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                  <textarea 
+                    class="textarea_editor span12" 
+                    rows="6" 
+                    ng-model="assignCrtCtrl.additionalMaterial" 
+                    placeholder="Enter Text Here"
+                    ></textarea>
                 </div>
               </form>
             </div>
@@ -32,13 +37,20 @@
                 <div class="controls">
                   <span class="label label-warning">Please select your storage file here:</span><br>
                   <small>Format: pdf, or image. Click save or submit to upload the file</small><br>
-                  <input type="file" nv-file-select uploader="$ctrl.uploader" options="$ctrl.uploadeOptionStorage"/>
+                  <input type="file" nv-file-select uploader="assignCrtCtrl.uploader" options="assignCrtCtrl.uploadeOptionStorage"/>
                 </div>
               </form>
             </div>
           </div>
         </div>
     <!-- end of uploader -->
+    <!-- choose students -->
+    <check-box
+      head-title="assignCrtCtrl.headTitle"
+      column-title="assignCrtCtrl.columnTitle"
+      row-content="assignCrtCtrl.students"
+    ></check-box>
+    <!-- end of choose students -->
   <div class="row-fluid">
 </div>
 <!-- end of label -->

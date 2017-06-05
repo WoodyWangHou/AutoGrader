@@ -24,7 +24,7 @@
 
   function UIInit(){
     this.getColumn = function(){
-        return ["Student Name","Matric Number","Submission Date","Scores"];
+        return ["Matric Number","Name","Submission Date","Scores"];
     }
     this.getListDescription = function(){
       return "submission";
