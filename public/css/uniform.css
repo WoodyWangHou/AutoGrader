@@ -407,7 +407,6 @@ div.radio {
 
 /* Uploader */
 div.uploader {
-  width: 190px;
   cursor: pointer;
 }
 
@@ -422,7 +421,6 @@ div.uploader span.action {
 
 div.uploader span.filename {
   color: #777;
-  width: 82px;
   border-right: solid 1px #bbb;
   font-size: 11px;
 }

@@ -1,24 +1,59 @@
-<div class="widget-box">
-          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
-            <h5>{{$ctrl.headTitle}}</h5>
+      <div class="widget-box">
+          <div class="widget-title"> 
+          <a href="javascript:;" data-target="#check_box" data-toggle="collapse" class="collapse">
+          <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>*{{$ctrl.headTitle}}</h5>
           </div>
-
-          <div class="widget-content ">
+          </a>
+          <div id="check_box" class="collapse">
+          <div class="widget-content">
+          <div ng-class="[{'control-group':true},{'error':!$ctrl.master}]">
             <table class="table table-bordered table-striped with-check">
+            <div class="container span 12">
+              <label>
+                Search:
+                <input type="text" autocomplete="off" class="select2-input" tabindex="0"
+                        ng-model="$ctrl.searchKey">
+              </label>
+            </div>
               <thead>
                 <tr>
-                  <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                  <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" 
+                              ng-model="$ctrl.master"
+                              ng-change="$ctrl.checkAll()"/></th>
                   <th  ng-repeat= "title in $ctrl.columnTitle">{{title}}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat = "item in $ctrl.rowContent">
-                  <td><input type="checkbox" /></td>
+                <tr ng-repeat = "item in $ctrl.rowContent | filter:$ctrl.searchKey | limitTo: $ctrl.quantityToShow : $ctrl.begin">
+                  <td><input type="checkbox" 
+                              ng-model="$ctrl.checkboxList[item.matric_number]"
+                              ng-change="$ctrl.resetMaster(); $ctrl.checkClicked({
+                              matric_number:  item.matric_number,
+                              is_selected:    $ctrl.checkboxList[item.matric_number]
+                              })"/></td>
                   <td ng-repeat= "detail in item">{{detail}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
 
-    <!--  -->
+
+          <div class="DataTables_wrapper">
+          <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
+          <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+          <a ng-click="$ctrl.first()" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default" id="DataTables_Table_0_first">First</a>
+          <a ng-click="$ctrl.previous()" class="previous fg-button ui-button ui-state-default" id="DataTables_Table_0_previous">Previous</a>
+
+          <span>
+          <a ng-repeat="index in $ctrl.pages track by $index" ng-class="[{'fg-button':true},{'ui-button':true},{'ui-state-default':true},{'ui-state-disable':($ctrl.currentPage == index)}]" ng-click="$ctrl.goToPage($index)">{{index}}</a>
+          </span>
+
+          <a ng-click="$ctrl.next()" class="next fg-button ui-button ui-state-default" id="DataTables_Table_0_next">Next</a>
+          <a ng-click="$ctrl.last()" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default" id="DataTables_Table_0_last">Last</a>
+          </div>
+          </div>
+          </div>
+
+          </div>
+        </div>

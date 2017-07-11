@@ -1,68 +1,203 @@
+
 <div class="row-fluid">
   <!-- data table -->
   <div class="span2">
   </div>
+
+  <form name="assignCrtCtrl.form" novalidate>
   <div class="span8">
+      <div class="widget-box">
+          <div class="widget-title">
+            <a href="javascript:;" data-target="#assignment_detail" data-toggle="collapse" class="collapse"> 
+            <span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>*Assignment Detail</h5>
+            </a>
+          </div>
+        <div id="assignment_detail">
+        <div class="widget-content nopadding">
+        <!-- Deadline -->
+          <ng-form class="form-horizontal" name="deadline_form" novalidate>
+            <div ng-class="[{'control-group':true},{'error': (assignCrtCtrl.form.$submitted || deadline_form.deadline.$touched) && deadline_form.deadline.$error.required}]">
+              <label class="control-label">Deadline(dd-mm-yyyy)</label>
+              <div class="controls">
+                <div class="input-append date" data-date="Date.now()">
+                  <input 
+                  name="deadline" 
+                  type="text" 
+                  class="span8" 
+                  ng-model="assignCrtCtrl.deadline" 
+                  placeholder="dd/mm/yyyy"  
+                  ng-model-options="{ updateOn: 'mousedown blur' }" 
+                  required>
+                  </div>
+                  <div ng-show="assignCrtCtrl.form.$submitted || deadline_form.deadline.$touched">
+                  <div ng-show="deadline_form.deadline.$error.required" class="help-inline">Please provide a deadline</div>
+                  </div>
+              </div>
+          </div>
+        </ng-form>
+
+      <!-- Assignment Name -->            
+      <ng-form class="form-horizontal" name="name" novalidate>
+          <div ng-class="[{'control-group':true},{'error':(assignCrtCtrl.form.$submitted || name.assignment_name.$touched) && name.assignment_name.$error.required}]">
+              <label class="control-label">Assignment Name</label>
+                <div class="controls">
+                      <input
+                        type="text"
+                        placeholder="Assignment Name"
+                        class="span8" 
+                        ng-model="assignCrtCtrl.assignment_name" 
+                        required
+                        ng-model-options="{ updateOn: 'mousedown blur' }"
+                        name="assignment_name">
+                      <div ng-show="assignCrtCtrl.form.$submitted || name.assignment_name.$touched">
+                      <div ng-show="name.assignment_name.$error.required" class="help-inline">Please provide an assignment name</div>
+                      </div>
+                </div>
+            </div>
+        </ng-form>
+
+      <!-- end of assignment name -->
+       <!-- Description -->
+       <ng-form class="form-horizontal" name="description_form" novalidate>
+          <div ng-class="[{'control-group':true},{'error':(assignCrtCtrl.form.$submitted || description_form.description.$touched) && description_form.description.$error.required}]">
+            <label class="control-label">Description</label>
+              <div class="controls">
+                    <input
+                      type="text"
+                      placeholder="Short assignment description"
+                      class="span8" 
+                      ng-model="assignCrtCtrl.assignment_description" 
+                      required
+                      ng-model-options="{ updateOn: 'mousedown blur' }"
+                      name="description">
+              <div ng-show="assignCrtCtrl.form.$submitted || description_form.description.$touched">
+              <div ng-show="description_form.description.$error.required" class="help-inline">Please provide short assignment description</div>
+              </div>
+              </div>
+           </div>
+        </ng-form>
+      <!-- end of description -->
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="assignCrtCtrl.form.$submitted || assignCrtCtrl.form.$touched">
+      <div class="alert alert-error" ng-show="deadline_form.$error.required">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please provide a deadline </div>
+      <div class="alert alert-error" ng-show="name.$error.required">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please provide an assignment name </div>
+      <div class="alert alert-error" ng-show="description_form.$error.required">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please provide assignment description </div>
+      </div>
+
     <!-- the material tab -->
     <div class="widget-box">
-      <div class="widget-title"><span class="icon"><i class="icon-arrow-right"></i></span>
+      <div class="widget-title">
+      <a href="javascript:;" data-target="#additional_material" data-toggle="collapse" class="collapse"> 
+      <span class="icon"><i class="icon-arrow-right"></i></span>
         <h5>Additional Materials</h5>
+        </a>
       </div>
       <!-- input box -->
+        <div id="additional_material" class="collapse">
         <div class="widget-content">
-            <div class="control-group">
-              <form>
+          <ng-form name="material_form" novalidate>
+          <div class="control-group">
                 <div class="controls">
                   <textarea 
                     class="textarea_editor span12" 
                     rows="6" 
-                    ng-model="assignCrtCtrl.additionalMaterial" 
+                    ng-model="assignCrtCtrl.additional_material" 
                     placeholder="Enter Text Here"
+                    ng-model-options="{ updateOn: 'mousedown blur' }"
+                    name="additional_material"
                     ></textarea>
                 </div>
-              </form>
+                </div>
+              </ng-form>
+              </div>
             </div>
         </div>
     <!-- input box -->
-    </div>
+
     <div class="widget-box">
-      <div class="widget-title"> <span class="icon"> <i class="icon-plus-sign"></i> </span>
-        <h5>THE PRESCRIPTION</h5>
+      <div class="widget-title"> 
+      <a href="javascript:;" data-target="#prescription" data-toggle="collapse" class="collapse"> 
+      <span class="icon"> <i class="icon-plus-sign"></i> </span>
+        <h5>*THE PRESCRIPTION</h5>
+        </a>
         </div>
         <!-- uploader -->
-        <div class="widget-box">
+          <div id="prescription" class="collapse">
           <div class="widget-content">
-            <div class="control-group">
-              <form>
+          <ng-form name="prescription_form" novalidate>
+            <div ng-class="[{'control-group':true},{'error':!assignCrtCtrl.validFile}]">
                 <div class="controls">
-                  <span class="label label-warning">Please select your storage file here:</span><br>
-                  <small>Format: pdf, or image. Click save or submit to upload the file</small><br>
-                  <input type="file" nv-file-select uploader="assignCrtCtrl.uploader" options="assignCrtCtrl.uploadeOptionStorage"/>
+                  <label class="control-label">Please upload prescription page, accepted file type: image,pdf</label>
+                  <div class="uploader">
+                  <input 
+                    type="file"
+                    nv-file-select uploader="assignCrtCtrl.uploader" 
+                    options="assignCrtCtrl.uploadeOptionStorage" 
+                    accept="application/pdf,image/*"
+                    >
+                    <span class="filename">{{assignCrtCtrl.uploader.queue[0].file.name || 'No file selected'}}</span>
+                    <span class="action">Choose File</span>
+                  </div>
+                  <div ng-show="!assignCrtCtrl.validFile" class="help-inline ">Please selected the right formatted file to upload</div>
                 </div>
-              </form>
             </div>
+          </ng-form>
           </div>
         </div>
+    </div>
+
+     <div ng-show="assignCrtCtrl.form.$submitted || assignCrtCtrl.form.$touched">
+           <div class="alert alert-error" ng-show="!assignCrtCtrl.validFile">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please provide a right form prescript file </div>
+      </div>
     <!-- end of uploader -->
+
     <!-- choose students -->
-    <check-box
-      head-title="assignCrtCtrl.headTitle"
-      column-title="assignCrtCtrl.columnTitle"
-      row-content="assignCrtCtrl.students"
-    ></check-box>
+      <check-box
+        head-title="assignCrtCtrl.headTitle"
+        column-title="assignCrtCtrl.columnTitle"
+        row-content="assignCrtCtrl.students"
+        checkbox-list="assignCrtCtrl.selected"
+        check-clicked="assignCrtCtrl.getSelectedStudents(matric_number,is_selected)"
+      ></check-box>
+
+      <div ng-show="assignCrtCtrl.form.$submitted || assignCrtCtrl.form.$touched">
+      <div class="alert alert-error" ng-show="!assignCrtCtrl.isSelected">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please choose the students to release the assignments! </div>
+      </div>
     <!-- end of choose students -->
-  <div class="row-fluid">
-</div>
 <!-- end of label -->
 <!-- assignment save -->
 <div class="form-actions">
-  <button type="submit" class="btn btn-warning">Save</button>
-  <button type="submit" class="btn btn-success">Submit</button>
+  <button type="submit" class="btn btn-success" ng-click="assignCrtCtrl.validFile && assignCrtCtrl.isFileSelected() && assignCrtCtrl.isSelected && assignCrtCtrl.form.$valid && assignCrtCtrl.submit()">Submit</button>
 </div>
 <!-- end of save -->
+    <!-- Error -->
+      <div class="alert alert-error" ng-if="assignCrtCtrl.error">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Error!</strong> {{assignCrtCtrl.error}} </div>
+      <div class="alert alert-success" ng-if="assignCrtCtrl.success">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Success!</strong> {{assignCrtCtrl.success}} </div>
+      <div class="alert alert-info" ng-if="assignCrtCtrl.info">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Note:</strong> {{assignCrtCtrl.info}} </div>
+    <!-- End of Error -->
   </div>
-  <!-- end of data table -->
-</div>
+  </form>
+  <!-- end of data table /end of span8-->
 <!-- end of span 12 -->
 <div class="span2">
 </div>

@@ -9,13 +9,19 @@ instructorInterfaceInitService.$inject= [
 'STUDENT_ICON',
 'INSTRUCTOR_STATE',
 'INSTRUCTOR_ICON',
-'userInterfaceInitService'];
+'userInterfaceInitService',
+'$http',
+'REMOTE_SERVER',
+'REQUEST_URL'];
 function instructorInterfaceInitService(
   STUDENT_STATE,
   STUDENT_ICON,
   INSTRUCTOR_STATE,
   INSTRUCTOR_ICON,
-  userInterfaceInitService) {
+  userInterfaceInitService,
+  $http,
+  REMOTE_SERVER,
+  REQUEST_URL) {
   // This is student interface ajax service
   var service = this;
   service.username = {};
@@ -199,6 +205,17 @@ function instructorInterfaceInitService(
       return getSubmissionResultFromServer(assignments);
   }
 
+  service.getAssignmentSubmission = function(assignmentId){
+       var config = {
+          params:{
+            assignment_id:assignmentId
+          }
+        };
+        var url = REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.SUBMISSION;
+        var submission = $http.get(url,config);
+        return submission;
+  }
+
   var getSubmissionResultFromServer = function(assignments){
     var nameOfAssignments = [];
     var progress = {};
@@ -248,24 +265,19 @@ function instructorInterfaceInitService(
   }
 
   service.getAllAssignmentNames = function(){
-    var nameOfAssignments = [];
-    var assignments = [];
-    // pull all assignments from server
-    assignments.push(userInterfaceInitService.getStudentAssignmentById('A0078679A'));
-    assignments.push(userInterfaceInitService.getStudentAssignmentById('A0078679B'));
+    var assignmentList = $http.get(REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.ASSIGNMENT_LIST);
+    return assignmentList;
+  }
 
-    for(var i = 0; i<assignments.length;i++){
-        for(var j = 0; j<assignments[i].length;j++){
-            if(!isExist(assignments[i][j],nameOfAssignments)){
-              var name = {
-                name:assignments[i][j].assignmentName,
-                assignmentGroupId:assignments[i][j].assignmentGroupId
-              };
-              nameOfAssignments.push(name);
-            }
-        }
+  service.getAllStudentsByAssignments = function(assignment_id){
+    var config = {
+      params:{
+        assignment_id:assignment_id
       }
-    return nameOfAssignments;
+    };
+    var url = REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.STUDNETS_IN_ASSIGMENT;
+    var students = $http.get(url,config);
+    return students;
   }
 
   var isExist = function(assignment,nameOfAssignments){
@@ -278,14 +290,14 @@ function instructorInterfaceInitService(
   };
 
   service.getAssignmentById = function(assignmentId){
-    service.assignment = userInterfaceInitService.getStudentAssignmentById();
-        for(var i = 0;i<service.assignment.length;i++){
-          for(var key in service.assignment[i]){
-            if(service.assignment[i][key].indexOf(assignmentId)){
-              return service.assignment[i];
-            }
-          }
+      var config = {
+        params:{
+          assignment_id:assignmentId
         }
+      };
+      var url = REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.ASSIGNMENT_BY_ID;
+      var assignment = $http.get(url,config);
+      return assignment;
     }
 
 // for assignment.form additional materials, ajax to pull data
@@ -294,16 +306,9 @@ function instructorInterfaceInitService(
   }
 
   service.getStudents = function(){
-    return [
-      {
-        matricNumber:"A0078679A",
-        name:"Wang Hou"
-      },
-      {
-        matricNumber:"A0078679B",
-        name:"Woody Wang"
-      }
-    ];
+    var studentList = $http.get(REMOTE_SERVER+REQUEST_URL.STUDENT+REQUEST_URL.STUDENT_LIST);
+
+    return studentList;
   }
 
 // download list of students, categorized by assignments
@@ -391,6 +396,10 @@ function instructorInterfaceInitService(
       }
 
       return str;
+    }
+
+    service.evaluationSubmitUrl = function(){
+      return (REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.EVALUATION);
     }
 }
 })();

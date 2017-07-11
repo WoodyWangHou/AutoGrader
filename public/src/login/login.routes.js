@@ -17,16 +17,16 @@
         templateUrl: 'src/login/login-main/login-form.html',
         controller: 'LoginFormController',
         controllerAs: 'LoginFormCtrl',
-        css:['css/matrix-login.css',
-            'font-awesome/css/font-awesome.css',
-            'http://fonts.googleapis.com/css?family=Open+Sans:400,700,800']
-      });
-      // .state('login.recover', {
-      //   url: '/',
-      //   templateUrl: 'src/login/login-recover/login-recover.html'
-      //   controller: 'LoginRecoverController',
-      //   controllerAs: 'LoginRecoverCtrl',
-      // );
+        css:['css/matrix-login.css']
+      })
+      .state('login.register', {
+        url: '/register',
+        templateUrl: 'src/login/login-register/login-register.html',
+        controller: 'registerFormController',
+        controllerAs: 'registerCtrl',
+        css:['css/matrix-login.css']
+      })
+      ;
 }
 
 })();

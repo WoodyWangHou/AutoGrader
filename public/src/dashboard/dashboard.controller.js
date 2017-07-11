@@ -45,7 +45,6 @@
           if(INSTRUCTOR_STATE[key]==toState.name){
             $ctrl.menus = instructorInterfaceInitService.getInstructorMenu(toState.name);
             $ctrl.nav = instructorInterfaceInitService.getInstructorNav(toState.name);
-            console.log("toState is",toState);
           }
         }
     });

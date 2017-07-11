@@ -8,28 +8,56 @@
   const AUX_LABEL = 2;
   const STORAGE = 3;
 
-  instruAssignmentFormController.$inject =['$state','$stateParams','userInterfaceInitService','ajaxUploadService'];
-  function instruAssignmentFormController($state,$stateParams,userInterfaceInitService,ajaxUploadService){
+  instruAssignmentFormController.$inject =[
+  '$state',
+  '$stateParams',
+  'userInterfaceInitService',
+  'instructorInterfaceInitService',
+  'ajaxUploadService'];
+  function instruAssignmentFormController(
+    $state,
+    $stateParams,
+    userInterfaceInitService,
+    instructorInterfaceInitService,
+    ajaxUploadService){
 
     var $ctrl = this;
     var init = new UIinit();
 
     $ctrl.instructor = true;
     $ctrl.assignmentId = $stateParams.assignmentId;
-    $ctrl.detail = userInterfaceInitService.getAssignmentById($ctrl.assignmentId);
-    $ctrl.additional = userInterfaceInitService.getAssignmentAdditionalMaterialById($ctrl.assignmentId);
     // config file uploader
     $ctrl.uploader = ajaxUploadService.getAssignmentFileUploader();
     $ctrl.uploader.queueLimit = 2;
-    $ctrl.uploadeOptionStorage = init.getUploaderOption(STORAGE);
-    $ctrl.uploadeOptionMainLabel = init.getUploaderOption(MAIN_LABEL);
-    $ctrl.uploadeOptionAuxLabel = init.getUploaderOption(AUX_LABEL);
-    // viewmodel for 1.formulation
-    var form = init.setForm();
-    var formElement=init.getNewRow();
-    form.formulation.push(formElement);
 
-    $ctrl.form = form;
+    $ctrl.submitUrl = instructorInterfaceInitService.evaluationSubmitUrl();
+    $ctrl.mode = {
+      viewOnlyMode:true,
+      evaluateMode:true
+    };
+
+    var assignment = instructorInterfaceInitService.getAssignmentById($ctrl.assignmentId);
+
+    var errorHandler = function(error){
+      $ctrl.error = error.status + " " + error.data;
+      if(error.data){
+        $ctrl.error += error.data;
+      }
+    }
+
+    $ctrl.$onInit = function(){
+      assignment.then(function(res){
+        var response = res.data;
+        console.log('the response:',res);
+        $ctrl.additional = response.template.additional_material;
+        $ctrl.form = response.submission;
+        $ctrl.scores = response.submission.evaluation.scores;
+        $ctrl.comments = response.submission.evaluation.comments;
+      },function(error){
+        errorHandler(error);
+      });
+    }
+
     // add row function to formulation
     $ctrl.addRow = function(){
       $ctrl.form.formulation.push(init.getNewRow());
@@ -79,27 +107,6 @@
         actual:0
       };
       return newRow;
-    };
-
-    init.getUploaderOption =function(option){
-        switch(option){
-          case MAIN_LABEL:
-          return {
-            alias:"mainLabel"
-          };
-          break;
-          case AUX_LABEL:
-          return {
-            alias:"auxLabel"
-          };
-          break;
-          case STORAGE:
-          return {
-            alias:"storage"
-          };
-          break;
-          default:
-        }
     };
   }
 

@@ -1,0 +1,17 @@
+.pdfViewer.short{
+  width:100%;
+  height:100px;
+}
+
+.pdfViewer.medium{
+  width:100%;
+  height:300px;
+}
+
+.pdfViewer{
+  width:100%;
+  height:600px;
+  overflow:scroll;
+  background-color:#404040;
+  background-image:url(images/texture.png);
+}

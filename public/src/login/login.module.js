@@ -1,7 +1,7 @@
 (function(){
 'use strict'
 
-  angular.module('login',['ui.router','angularCSS']);
+  angular.module('login',['ui.router','angularCSS','ngCookies']);
 
 
 })();

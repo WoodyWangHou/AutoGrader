@@ -1,0 +1,100 @@
+<div id="loginbox">
+    <form id="loginform" class="form-vertical" action="index.html">
+ <div class="control-group normal_text"> <h3><img src="img/nus-pharmacy.png" alt="Logo" /></h3></div>
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box" >
+                    <span class="add-on bg_lg"><i class="icon-user"> </i></span>
+                    <input
+                           type="text"
+                           placeholder="Matric Number"
+                           ng-model="registerCtrl.username"
+                           autofocus/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_ly"><i class="icon-lock"></i></span>
+                    <input type="password"
+                          placeholder="Password"
+                          ng-model="registerCtrl.password"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lb"><i class="icon-check"></i></span>
+                    <input type="text"
+                          placeholder="First Name"
+                          ng-model="registerCtrl.first_name"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lb"><i class="icon-check"></i></span>
+                    <input type="text"
+                          placeholder="Last Name"
+                          ng-model="registerCtrl.last_name"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lo"><i class="icon-calendar"></i></span>
+                    <input type="text"
+                          placeholder="Year of Enrollment"
+                          ng-model="registerCtrl.enrollment_year"/>
+                </div>
+            </div>
+        </div>
+
+            <div class="control-group">
+              <div class="controls">
+              <label class="control-label"><strong>Are you Instructor?</label>
+
+              <div class="controls">
+                <label>
+                  <input type="radio" ng-model="registerCtrl.is_instructor" ng-value="registerCtrl.boolean_true" />
+                  Yes</label>
+                <label>
+                  <input type="radio" ng-model="registerCtrl.is_instructor" ng-value="registerCtrl.boolean_false" />
+                  No</label>
+              </div>
+            </div>
+          </div>
+
+        <div class="form-actions">
+            <!-- <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Lost password?</a></span> -->
+          <span class="pull-left">
+            <a type="submit" class="btn btn-warning" ui-sref="login.form">
+            Back to Login
+          </a></span>
+
+            <span class="pull-right">
+            <a type="submit" class="btn btn-success" ng-click="registerCtrl.valid() && registerCtrl.submit()"  ng-disabled="!registerCtrl.valid()" ng-show="!registerCtrl.success">
+            Register
+          </a></span>
+        </div>
+        <!-- Error -->
+          <div class="alert alert-success" ng-if="registerCtrl.success">
+              <button class="close" data-dismiss="alert">×</button>
+              <strong>Success!</strong> {{registerCtrl.success}} </div>
+          <div class="alert alert-info" ng-if="registerCtrl.info">
+              <button class="close" data-dismiss="alert">×</button>
+              <strong>Info!</strong> {{registerCtrl.info}} </div>
+          <div class="alert alert-error" ng-if="registerCtrl.error">
+              <button class="close" data-dismiss="alert">×</button>
+              <strong>Error!</strong> {{registerCtrl.error}} </div>
+    <!-- End of Error -->
+        </form>
+  </div>

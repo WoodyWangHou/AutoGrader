@@ -20,7 +20,7 @@
       <!-- table title -->
         <thead>
           <tr role="row">
-            <th ng-repeat="item in $ctrl.column track by $index" class="ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 15%;">
+            <th ng-repeat="item in $ctrl.column track by $index" class="ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
               <div class="DataTables_sort_wrapper">{{$ctrl.column[$index]}}<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
               </div>
               <!-- assignment name -->
@@ -30,29 +30,15 @@
         <!-- end of table title -->
       <tbody role="alert" aria-live="polite" aria-relevant="all">
           <tr ng-repeat= "item in $ctrl.detail | filter:searchKey" class="gradeA odd">
-              <td class=" sorting_1">
-                <a
-                  class="btn btn-mini btn-success"
-                  ng-if="!$ctrl.instructor"
-                  ui-sref="stuAssignments.form({assignmentId:item.assignmentId})">
-                {{item.matricNubmer || item.assignmentName}}
-                </a>
-                <a
-                  class="btn btn-mini btn-success"
-                  ng-if="$ctrl.instructor && item.assignmentName"
-                  ui-sref="instrStudents.form({assignmentId:item.assignmentId})">
-                {{item.matricNubmer || item.assignmentName}}
-                </a>
-                <a
-                  class="btn btn-mini btn-success"
-                  ng-if="$ctrl.instructor && !item.assignmentName"
-                  ui-sref="instrAssignments.form({assignmentId:item.assignmentId})">
-                {{item.matricNubmer || item.assignmentName}}
-                </a>
-              </td>
-              <td class=" ">{{item.name || item.description}}</td>
-              <td class=" ">{{item.submissionDate || item.deadline}}</td>
-              <td class="center ">{{item.scores || item.status}}</td>
+                <td ng-repeat="field in item">
+                  <a
+                      ng-if="$index == 0"
+                      class="btn btn-mini btn-success"
+                      ui-sref="instrAssignments.form({studentsName:item.$name,assignmentId:item.$id})">
+                      {{field}}
+                  </a>
+                      <span ng-if="$index != 0 ">{{field}}</span>
+                </td>
           </tr>
         </tbody>
       </table>

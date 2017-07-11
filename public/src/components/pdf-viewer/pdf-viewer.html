@@ -1,0 +1,27 @@
+  <div class="toolbar">
+    <nav id="toolbarContainer">
+      <div id="toolbarViewer">
+
+        <div id="toolbarViewerLeft">
+        <button class="btn btn-mini btn-inverse" ng-click="$ctrl.prevPage()"><span><i class="icon-arrow-up"></i></span></button>
+          <span>Page: </span>
+        		<input id="pageNumber" ng-class="[{'toobarField':true},{'pageNumber':true},{'visiblePageIsLoading':$ctrl.pageLoading}]" type="number" min=1 ng-model="$ctrl.pageNum">
+        	<span> / {{$ctrl.totalPages}}</span>
+        <button class="btn btn-mini btn-inverse" ng-click="$ctrl.nextPage()"><span><i class="icon-arrow-down"></i></span></button>
+        </div>
+
+        <div id="toolbarViewerMiddle">
+          <button class="btn btn-mini btn-inverse" ng-click="$ctrl.zoomIn()"><span><i class="icon-plus"></i></span></button>
+          <button class="btn btn-mini btn-inverse" ng-click="$ctrl.zoomOut()"><span><i class="icon-minus"></i></span></button>
+          <button class="btn btn-mini btn-inverse" ng-click="$ctrl.fit()"><span>100%</span></button>
+          <span><i class="icon-search"></i></span>
+        </div>
+
+      </div>
+  </nav>
+</div>
+
+<div ng-class="[{'pdfViewer':true},{'small':$ctrl.small},{'medium':$ctrl.medium}]">
+		<canvas drag-scroll="true" ></canvas>
+</div>
+{{loading}}

@@ -8,7 +8,6 @@ angular.module('autograder')
         detail:'<',
         column:'<',
         name:'<',
-        instructor:'<',
         title:'<'
   }
 });

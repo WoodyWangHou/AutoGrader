@@ -8,24 +8,34 @@
 <link rel="stylesheet" href="css/nprogress.css" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/bootstrap-datepicker.min.css" />
 <link rel="stylesheet" href="css/matrix-style.css" />
 <link rel="stylesheet" href="css/matrix-media.css" />
+<link rel="stylesheet" href="css/uniform.css" />
 <link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800" />
 
+<base href="/">
 </head>
 <body ng-app="autograder" ng-strict-di>
   <ui-view></ui-view>
   <loading-bar></loading-bar>
   <!-- lib -->
   <script src="lib/jquery.min.js"></script>
+  <script src="lib/jquery.ui.custom.js"></script>
+  <script src="lib/bootstrap-datepicker.min.js"></script>
   <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/pdf.compat.js"></script>
+  <script src="lib/pdf.js"></script>
   <script src="lib/angular.min.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
   <script src="lib/angular-css.js"></script>
   <script src="lib/angular-file-upload.min.js"></script>
   <script src="lib/nprogress.js"></script>
+  <script src="lib/angular-cookies.min.js"></script>
+  <script src="lib/ng-drag-scroll.min.js"></script>
+
  <!--  Grader Main Module -->
   <script src= "src/auto-grader.module.js"></script>
   <script src= "src/login/login.module.js"></script>
@@ -35,6 +45,7 @@
   <script src= "src/components/loading-bar/loading-bar.module.js"></script>
   <!--  controller -->
   <script src= "src/login/login-main/login.controller.js"></script>
+  <script src= "src/login/login-register/login-register.controller.js"></script>
   <script src= "src/student/assignment/assignment.controller.js"></script>
   <script src= "src/student/home-main/home-main.controller.js"></script>
   <script src= "src/dashboard/dashboard.controller.js"></script>
@@ -49,6 +60,8 @@
   <script src= "src/student/student.routes.js"></script>
   <script src= "src/instructor/instructor.routes.js"></script>
   <!-- components -->
+  <script src="src/components/pdf-viewer/pdf-viewer.js"></script>
+  <script src= "src/components/pdf-viewer/pdf-viewer.js"></script>
   <script src= "src/components/side-bar/side-bar-menu.component.js"></script>
   <script src= "src/components/nav-header/nav-header.component.js"></script>
   <script src= "src/components/action-box/action-box.component.js"></script>
@@ -63,5 +76,9 @@
   <script src= "src/services/download.student.service.js"></script>
   <script src= "src/services/download.instructor.service.js"></script>
   <script src= "src/services/upload.service.js"></script>
+  <script src= "src/services/http-interceptor.js"></script>
+  <!-- validator (used for form validation) -->
+  <script src= "src/validator/validator.module.js"></script>
+  <script src= "src/validator/scores.validator.js"></script>
 </body>
 </html>

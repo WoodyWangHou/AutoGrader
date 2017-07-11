@@ -25,10 +25,20 @@
         </div>
         <div class="form-actions">
             <!-- <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Lost password?</a></span> -->
+            <span class="pull-left">
+            <a type="submit" class="btn btn-warning" ui-sref="login.register">
+            register
+          </a></span>
             <span class="pull-right">
             <a type="submit" class="btn btn-success" ng-click="LoginFormCtrl.valid() && LoginFormCtrl.submit()"  ng-disabled="!LoginFormCtrl.valid()">
             Login
           </a></span>
         </div>
     </form>
+    <!-- Error -->
+          <div class="alert alert-error" ng-if="LoginFormCtrl.error">
+              <button class="close" data-dismiss="alert">×</button>
+              <strong>Error!</strong> {{LoginFormCtrl.error}} </div>
+          </div>
+    <!-- End of Error -->
   </div>

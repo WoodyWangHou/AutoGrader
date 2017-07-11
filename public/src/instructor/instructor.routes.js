@@ -30,10 +30,11 @@
           controllerAs: 'stuListCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_STUDENT_FORM, {
-          url: '/:assignmentId',
+          url: '/:studentsName/:assignmentId',
           templateUrl: 'src/instructor/assignment-form/assignment-form.html',
           controller: 'instruAssignmentFormController',
-          controllerAs: 'instructorFormCtrl'
+          controllerAs: 'instructorFormCtrl',
+          css:['css/viewer.css','css/pdfview.css']
         })
         .state(INSTRUCTOR_STATE.HOME_ASSIGNMENT, {
           parent:'instructor_init',
@@ -49,10 +50,11 @@
           controllerAs: 'assignCrtCtrl'
         })
         .state(INSTRUCTOR_STATE.HOME_ASSIGNMENT_FORM, {
-          url:'/:assignmentId',
+          url:'/:studentsName/:assignmentId',
           templateUrl: 'src/instructor/assignment-form/assignment-form.html',
           controller: 'instruAssignmentFormController',
-          controllerAs: 'instructorFormCtrl'
+          controllerAs: 'instructorFormCtrl',
+          css:['css/viewer.css','css/pdfview.css']
         })
         ;
       }

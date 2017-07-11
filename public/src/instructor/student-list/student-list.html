@@ -17,18 +17,17 @@
         </div>
     <div ng-repeat="item in stuListCtrl.studentList | filter:searchKey" class="collapsible">
       <div class="widget-title">
-        <a href="javascript:;" data-target="#{{item.matricNumber}}" data-toggle="collapse" class="collapse">
+        <a href="javascript:;" data-target="#{{item.username}}" data-toggle="collapse" class="collapse">
           <span class="icon"><i class="icon-arrow-right"></i></span>
-        <h5>{{item.matricNumber}} - {{item.name}}</h5>
+        <h5>{{item.username}} - {{item.first_name}} {{item.last_name}}</h5>
         </a>
       </div>
-      <div class="collapse" id="{{item.matricNumber}}">
+      <div class="collapse" id="{{item.username}}">
         <list-table
-              name="item.name"
-              instructor="stuListCtrl.isInstructor"
+              name="item.username"
               title="stuListCtrl.title"
               column="stuListCtrl.column"
-              detail="item.assignmentList"
+              detail="item.detail"
           ></list-table>
       </div>
 

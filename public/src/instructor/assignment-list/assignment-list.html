@@ -21,18 +21,17 @@
     </div>
     <div ng-repeat="item in instructorAssignListCtrl.assignments | filter:searchKey" class="collapsible">
       <div class="widget-title">
-        <a href="javascript:;" data-target="#{{item.assignmentGroupId}}" data-toggle="collapse" class="collapse">
+        <a href="javascript:;" data-target="#{{item.assignmentId}}" data-toggle="collapse" class="collapse">
           <span class="icon"><i class="icon-arrow-right"></i></span>
-        <h5>{{item.name}} - ID: {{item.assignmentGroupId}}</h5>
+        <h5>{{item.name}} - Deadline by: {{item.deadline}} - ID: {{item.description}}</h5>
         </a>
       </div>
-      <div class="collapse" id="{{item.assignmentGroupId}}">
+      <div class="collapse" id="{{item.assignmentId}}">
         <list-table
               name="item.name"
-              instructor="instructorAssignListCtrl.isInstructor"
               title="instructorAssignListCtrl.title"
               column="instructorAssignListCtrl.column"
-              detail="item.students"
+              detail="item.detail"
           ></list-table>
       </div>
 

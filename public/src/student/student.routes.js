@@ -11,13 +11,14 @@
       $stateProvider
         .state('init',{
           abstract:true,
+          url:'/student',
           templateUrl:'src/dashboard/dashboard.html',
           controller: 'dashboardController',
           controllerAs: 'dbCtrl'
         })
         .state(STUDENT_STATE.HOME, {
           parent:'init',
-          url:'/student',
+          url:'/home',
           templateUrl: 'src/student/home-main/home-main.html',
           controller: 'homeController',
           controllerAs: 'homeCtrl'

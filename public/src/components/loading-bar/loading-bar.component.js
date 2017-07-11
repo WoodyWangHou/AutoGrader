@@ -32,6 +32,25 @@ function spinnerController ($rootScope){
   				NProgress.remove();
 			});
 		cancellers.push(cancel);
+
+		var cancel = $rootScope.$on('$http:progress',
+			function(event,data){
+				NProgress.inc();
+			});
+		cancellers.push(cancel);
+
+		var cancel = $rootScope.$on('$http:finish',
+			function(event,data){
+				NProgress.done();
+				NProgress.remove();
+			});
+		cancellers.push(cancel);
+
+		var cancel = $rootScope.$on('$http:start',
+			function(event,data){
+				NProgress.start();
+			});
+		cancellers.push(cancel);
 	};
 
 	$ctrl.$onDestroy = function(){

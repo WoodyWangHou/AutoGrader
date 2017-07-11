@@ -1,7 +1,7 @@
 (function(){
 'use strict'
 
-  angular.module('instructor',['ui.router','angularCSS'])
+  angular.module('instructor',['ui.router','angularCSS','PDFViewer','validator'])
   .constant('INSTRUCTOR_STATE',{
     HOME:"instructor",
     HOME_STUDENT:"instrStudents",
