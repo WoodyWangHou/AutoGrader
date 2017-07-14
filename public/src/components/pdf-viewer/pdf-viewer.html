@@ -22,6 +22,10 @@
 </div>
 
 <div ng-class="[{'pdfViewer':true},{'small':$ctrl.small},{'medium':$ctrl.medium}]">
+<div id="errorWrapper" ng-if="$ctrl.error">
+          <div class="clearBoth"></div>
+          <div id="errorMoreInfo">{{$ctrl.error}}</div>
+</div>
 		<canvas drag-scroll="true" ></canvas>
 </div>
 {{loading}}

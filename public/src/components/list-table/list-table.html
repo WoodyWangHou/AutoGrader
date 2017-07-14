@@ -25,6 +25,10 @@
               </div>
               <!-- assignment name -->
             </th>
+            <th class="ui-state-default">
+              <div class="DataTables_sort_wrapper">Delete</div>
+              <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+            </th>
           </tr>
         </thead>
         <!-- end of table title -->
@@ -32,12 +36,27 @@
           <tr ng-repeat= "item in $ctrl.detail | filter:searchKey" class="gradeA odd">
                 <td ng-repeat="field in item">
                   <a
-                      ng-if="$index == 0"
+                      ng-if="$index == 0 && $ctrl.toinstructorformstate"
                       class="btn btn-mini btn-success"
                       ui-sref="instrAssignments.form({studentsName:item.$name,assignmentId:item.$id})">
                       {{field}}
                   </a>
+                  <a
+                      ng-if="$index == 0 && $ctrl.toassignmentstate"
+                      class="btn btn-mini btn-success"
+                      ui-sref="instrStudents.form({studentsName:item.$name,assignmentId:item.$id})">
+                      {{field}}
+                  </a>
+                  <a
+                      ng-if="$index == 0 && $ctrl.tostudentstate"
+                      class="btn btn-mini btn-success"
+                      ui-sref="stuAssignments.form({assignmentName:item.$name,assignmentId:item.$id})">
+                      {{field}}
+                  </a>
                       <span ng-if="$index != 0 ">{{field}}</span>
+                </td>
+                <td>
+                  <button class="btn btn-danger pull-right" ng-click="$ctrl.deleteAssignment(item.$id)"> - </button>
                 </td>
           </tr>
         </tbody>

@@ -11,7 +11,6 @@ angular.module('autograder')
   	 columnTitle:'<',
      rowContent:'<',
      checkClicked:'&'
-     // checkboxList:'='
   }
 })
 .controller('checkBoxController',checkBoxController);
@@ -20,14 +19,14 @@ checkBoxController.$inject=['filterFilter'];
 function checkBoxController(filterFilter) {
 	var $ctrl = this;
 	$ctrl.master = false;
-	$ctrl.quantityToShow = 3;
 	$ctrl.begin = 0;
 	$ctrl.pages = [];
 	$ctrl.checkboxList = {};
 	$ctrl.currentPage = 1;
 	$ctrl.searchKey = "";
 	$ctrl.filteredContent = "";
-
+	$ctrl.quantityToShow = 10;
+	$ctrl.anySelect = false;
 	var previous_searchKey="";
 
 	var initNavigator = function(){
@@ -60,19 +59,17 @@ function checkBoxController(filterFilter) {
 	var clearCheck = function(){
 		for(var student in $ctrl.checkboxList){
 			$ctrl.checkboxList[student] = false;
+			$ctrl.checkClicked({
+                matric_number:  student,
+                is_selected:    false
+            });
 		}
-
-		// for(var i = 0;i<$ctrl.checkboxList.length;i++){
-		// 		$ctrl.checkboxList[i].is_selected = false;
-		// 		$ctrl.checkClicked({matric_number:$ctrl.checkboxList[i].matric_number,is_selected:false});
-		// }
 	}
 
 	$ctrl.resetMaster = function(){
 		if($ctrl.master){
 			$ctrl.master = false;
 		}
-		console.log('reset triggered:',$ctrl.master);
 	}
 
 	$ctrl.$onChanges = function(changeObj){
@@ -81,6 +78,15 @@ function checkBoxController(filterFilter) {
 		initCheckbox();
 	};
 
+	var anySelect = function(){
+		for (var key in $ctrl.checkboxList){
+			if($ctrl.checkboxList[key]){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	$ctrl.$doCheck = function(){
 		if(previous_searchKey !== $ctrl.searchKey){
 			$ctrl.filteredContent = filterFilter($ctrl.rowContent,$ctrl.searchKey);
@@ -88,6 +94,7 @@ function checkBoxController(filterFilter) {
 			resetNavigator();
 			// console.log('checked elements:',$ctrl.checkboxList);
 		}
+		$ctrl.anySelect = anySelect();
 	}
 
 	$ctrl.next =function(){
@@ -122,9 +129,9 @@ function checkBoxController(filterFilter) {
 		if($ctrl.master){
 			clearCheck();
 
-			for(var student in $ctrl.checkboxList){
-				$ctrl.checkboxList[student] = true;
-				$ctrl.checkClicked({matric_number:student,is_selected:true});
+			for(var student in $ctrl.rowContent){
+				$ctrl.checkboxList[$ctrl.rowContent[student].matric_number] = true;
+				$ctrl.checkClicked({matric_number:$ctrl.rowContent[student].matric_number,is_selected:true});
 			}
 		}else{
 			clearCheck();

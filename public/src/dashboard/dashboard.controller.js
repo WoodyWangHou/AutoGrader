@@ -8,16 +8,30 @@
       'instructorInterfaceInitService',
       '$rootScope',
       'STUDENT_STATE',
-      'INSTRUCTOR_STATE'
+      'INSTRUCTOR_STATE',
+      'ajaxUploadService',
+      '$cookies'
     ];
     function dashboardController(
       $state,
       userInterfaceInitService,
       instructorInterfaceInitService,
       $rootScope,
-      STUDENT_STATE,INSTRUCTOR_STATE){
+      STUDENT_STATE,INSTRUCTOR_STATE,
+      ajaxUploadService,
+      $cookies){
 
       var $ctrl = this;
+
+      $ctrl.logout = function(){
+        var logoutPromise = ajaxUploadService.logout();
+        logoutPromise.then(function(res){
+          $cookies.remove('token');
+          $state.go('login.form');
+        },function(error){
+          $state.go('login.form');
+        });
+      }
 
       for(var key in STUDENT_STATE){
         if(STUDENT_STATE[key] == $state.current.name){

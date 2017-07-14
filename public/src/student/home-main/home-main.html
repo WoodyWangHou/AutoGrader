@@ -15,7 +15,9 @@
         <!-- end of to do list -->
         <to-do-list
           to-do-list="homeCtrl.toDoList"
-          title="homeCtrl.toDoList.title"
+          default-text="homeCtrl.defaultText"
+          title="homeCtrl.listTitle"
+          is-instructor="homeCtrl.isInstructor"
         ></to-do-list>
       </div>
       <!-- end of left pane -->
@@ -23,7 +25,8 @@
         <!--  progress bar -->
         <progress-bar
           progress-table="homeCtrl.progress"
-          title="homeCtrl.progress.title"
+          title="homeCtrl.progressTableTitle"
+          info="homeCtrl.info"
         ></progress-bar>
         <!-- end of progress bar -->
       </div><!-- end of right pane -->

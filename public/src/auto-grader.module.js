@@ -2,7 +2,6 @@
 'use strict'
 
   angular.module('autograder',['login','student','instructor','service','loadingBar'])
-  .constant('baseAPI','localhost:3000')
   .config(config);
 
   config.$inject = ['$urlRouterProvider','$locationProvider'];

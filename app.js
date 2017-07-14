@@ -66,6 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
 app.use(function(err,req, res, next) {
 	if(err.status == 404){
+		err.data = "Can not find";
 		res.status(404).json(err);
 	}else{
 		next(err);

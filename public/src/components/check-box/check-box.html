@@ -7,14 +7,19 @@
           </a>
           <div id="check_box" class="collapse">
           <div class="widget-content">
-          <div ng-class="[{'control-group':true},{'error':!$ctrl.master}]">
+          <div ng-class="[{'control-group':true},{'error':!$ctrl.anySelect}]">
             <table class="table table-bordered table-striped with-check">
-            <div class="container span 12">
-              <label>
-                Search:
-                <input type="text" autocomplete="off" class="select2-input" tabindex="0"
+            <div class="container span12" style="display:inline;">
+                Search: <input type="text" autocomplete="off" class="select2-input" tabindex="0"
                         ng-model="$ctrl.searchKey">
-              </label>
+            # per page: <select class="span2" ng-model="$ctrl.quantityToShow">
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+                {{$ctrl.quantityToShow}}
+            </select>
             </div>
               <thead>
                 <tr>

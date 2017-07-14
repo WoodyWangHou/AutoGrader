@@ -27,7 +27,6 @@
                   class="span8" 
                   ng-model="assignCrtCtrl.deadline" 
                   placeholder="dd/mm/yyyy"  
-                  ng-model-options="{ updateOn: 'mousedown blur' }" 
                   required>
                   </div>
                   <div ng-show="assignCrtCtrl.form.$submitted || deadline_form.deadline.$touched">
@@ -48,7 +47,6 @@
                         class="span8" 
                         ng-model="assignCrtCtrl.assignment_name" 
                         required
-                        ng-model-options="{ updateOn: 'mousedown blur' }"
                         name="assignment_name">
                       <div ng-show="assignCrtCtrl.form.$submitted || name.assignment_name.$touched">
                       <div ng-show="name.assignment_name.$error.required" class="help-inline">Please provide an assignment name</div>
@@ -69,7 +67,6 @@
                       class="span8" 
                       ng-model="assignCrtCtrl.assignment_description" 
                       required
-                      ng-model-options="{ updateOn: 'mousedown blur' }"
                       name="description">
               <div ng-show="assignCrtCtrl.form.$submitted || description_form.description.$touched">
               <div ng-show="description_form.description.$error.required" class="help-inline">Please provide short assignment description</div>
@@ -113,7 +110,6 @@
                     rows="6" 
                     ng-model="assignCrtCtrl.additional_material" 
                     placeholder="Enter Text Here"
-                    ng-model-options="{ updateOn: 'mousedown blur' }"
                     name="additional_material"
                     ></textarea>
                 </div>
@@ -142,8 +138,7 @@
                   <input 
                     type="file"
                     nv-file-select uploader="assignCrtCtrl.uploader" 
-                    options="assignCrtCtrl.uploadeOptionStorage" 
-                    accept="application/pdf,image/*"
+                    accept="application/pdf"
                     >
                     <span class="filename">{{assignCrtCtrl.uploader.queue[0].file.name || 'No file selected'}}</span>
                     <span class="action">Choose File</span>
@@ -181,16 +176,16 @@
 <!-- end of label -->
 <!-- assignment save -->
 <div class="form-actions">
-  <button type="submit" class="btn btn-success" ng-click="assignCrtCtrl.validFile && assignCrtCtrl.isFileSelected() && assignCrtCtrl.isSelected && assignCrtCtrl.form.$valid && assignCrtCtrl.submit()">Submit</button>
+  <button ng-disabled="assignCrtCtrl.form.$submitted || !assignCrtCtrl.form.$valid" type="submit" class="btn btn-success" ng-click="assignCrtCtrl.submit()">Submit</button>
 </div>
 <!-- end of save -->
     <!-- Error -->
-      <div class="alert alert-error" ng-if="assignCrtCtrl.error">
+      <div class="alert alert-error" ng-if="assignCrtCtrl.error" ng-repeat="item in assignCrtCtrl.error track by $index">
           <button class="close" data-dismiss="alert">×</button>
-          <strong>Error!</strong> {{assignCrtCtrl.error}} </div>
-      <div class="alert alert-success" ng-if="assignCrtCtrl.success">
+          <strong>Error!</strong> {{item}} </div>
+      <div class="alert alert-success" ng-if="assignCrtCtrl.success" ng-repeat="item in assignCrtCtrl.success track by $index">
           <button class="close" data-dismiss="alert">×</button>
-          <strong>Success!</strong> {{assignCrtCtrl.success}} </div>
+          <strong>Success!</strong> {{item}} </div>
       <div class="alert alert-info" ng-if="assignCrtCtrl.info">
           <button class="close" data-dismiss="alert">×</button>
           <strong>Note:</strong> {{assignCrtCtrl.info}} </div>

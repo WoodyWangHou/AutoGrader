@@ -1550,6 +1550,7 @@ html[dir='rtl'] .outlineItemToggler::before {
   z-index: 1000;
   padding: 3px;
   font-size: 0.8em;
+  height:auto;
 }
 .loadingInProgress #errorWrapper {
   top: 37px;
@@ -1564,11 +1565,13 @@ html[dir='rtl'] .outlineItemToggler::before {
 }
 
 #errorMoreInfo {
-  background-color: #FFFFFF;
-  color: black;
+  background: transparent;
+  border:none;
+  color: white;
   padding: 3px;
   margin: 3px;
   width: 98%;
+  resize:none;
 }
 
 .overlayButton {

@@ -5,7 +5,22 @@
   <div class="widget-content">
     <div class="todo">
       <ul>
-        <list-item ng-repeat="item in $ctrl.toDoList"
-                    list-item="item"></list-item>
+        <li class="cearfix" ng-if="$ctrl.defaultText">
+          <div class="txt">{{$ctrl.defaultText}}</div>
+        </li>
+        <li class="clearfix" ng-repeat="item in $ctrl.toDoList">
+          <div class="txt"> {{item.name}} - {{item.description}} 
+          <span class="badge badge-{{item.dateTag}}"> {{item.date}} </span>
+          </div>
+          <div class="pull-right"> 
+            <a class="tip" ng-if="$ctrl.isInstructor" ui-sref="instrStudents.form({studentsName:item.$studentName,assignmentId:item.$assignmentId})" title="Edit Task">
+            <i class="icon-pencil"></i>
+            </a>
+            <a class="tip" ng-if="!$ctrl.isInstructor" ui-sref="stuAssignments.form({assignmentName:item.$studentName,assignmentId:item.$assignmentId})" title="Edit Task">
+            <i class="icon-pencil"></i>
+          </a></div>
+        </li>
       </ul>
     </div>
+    </div>
+  </div>

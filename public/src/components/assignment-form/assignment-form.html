@@ -1,4 +1,5 @@
-  <form name="$ctrl.assignmentForm" novalidate>
+  
+  <form name="$ctrl.assignmentForm" ng-if="!$ctrl.isInstructor" novalidate>
     <div class="widget-box collapsible">
       <div class="widget-title"> 
       <a href="javascript:;" data-target="#material" data-toggle="collapse"> 
@@ -62,8 +63,8 @@
                   <div class="control-group">
                   <div class="controls span12">
 
-                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11" ng-model="item.ingredient" />
-                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11" placeholder="Ingredient" ng-model="item.ingredient" />
+                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11" ng-model="item.ingredient_name" />
+                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11" placeholder="Ingredient" ng-model="item.ingredient_name" />
                   
                 </div>
               </div>
@@ -71,32 +72,31 @@
               <td>
                 <div class="control-group">
                 <div class="controls span12">
-                <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.quantity"/>
-                <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.quantity"/>
+                <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.official_quantity"/>
+                <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.official_quantity"/>
                 </div>
               </div>
             </td>
               <td>
                 <div class="control-group">
                 <div class="controls span12">
-                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.used" />
-                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.used" />
+                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.used_quantity" />
+                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.used_quantity" />
                 </div>
               </div>
             </td>
               <td>
                 <div class="control-group">
                 <div class="controls span12">
-                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.actual"/>
-                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.actual"/>
+                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11"  ng-model="item.actual_quantity_weighted"/>
+                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11"  ng-model="item.actual_quantity_weighted"/>
                 </div>
                 </div>
               </td>
               <td>
                 <div class="control-group">
                 <div class="controls span12">
-                  <input ng-if="$ctrl.viewOnlyMode" type="text" class="span11" placeholder="signature" />
-                  <input ng-if="!$ctrl.viewOnlyMode" disabled type="text" class="span11" placeholder="signature" />
+                  <input disabled type="text" class="span11" placeholder="signature" ng-model="item.signature" />
                 </div>
                 </div>
               </td>
@@ -106,7 +106,7 @@
         </ng-form>
         </div>
 
-      <div ng-if="!$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-if="!$ctrl.viewOnlyMode">
         <button class="btn btn-success pull-right" ng-click="$ctrl.addRow();">+</button>
         <button class="btn btn-danger pull-right" ng-click="$ctrl.deleteRow();">-</button>
       </div>
@@ -121,27 +121,18 @@
       </div>
 
   <!-- scores evaluation  -->
-  <ng-form class="form-horizontal" name="formulationForm" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || formulationForm.scores.$touched) && (formulationForm.scores.$error.required || formulationForm.scores.$error.score)}]">
+  <ng-form class="form-horizontal" novalidate>
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
               <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
-          <input 
-            type="text" 
-            class="span2" 
-            name="scores" 
-            placeholder="Scores:" 
-            ng-model="$ctrl.formulationScores" 
-            score 
-            required/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.formulationComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || formulationForm.scores.$touched">
-              <div ng-show="formulationForm.scores.$error.required || formulationForm.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores"/>
+          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.formulationComment"/>
         </div>
-      </div>
     </div>
+  </div>
   </ng-form>
+
       <!-- end of static table -->
       <!-- Calculation text box -->
       <div class="widget-box">
@@ -164,16 +155,13 @@
       </div>
     </div>
 
- <ng-form class="form-horizontal" name="calculationForm" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || calculationForm.scores.$touched) && (calculationForm.scores.$error.required || calculationForm.scores.$error.score)}]">
+ <ng-form class="form-horizontal" novalidate>
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
               <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores" score required/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.calculationComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || calculationForm.scores.$touched">
-              <div ng-show="calculationForm.scores.$error.required || calculationForm.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+              <div class="controls">
+          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores"/>
+          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.calculationComment"/>
         </div>
       </div>
     </div>
@@ -201,16 +189,13 @@
         </div>
       </div>
 
-  <ng-form class="form-horizontal" name="methodForm" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || methodForm.scores.$touched) && (methodForm.scores.$error.required || methodForm.scores.$error.score)}]">
+  <ng-form class="form-horizontal" novalidate>
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
               <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores" score required/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.methodComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || methodForm.scores.$touched">
-              <div ng-show="methodForm.scores.$error.required || methodForm.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+              <div class="controls">
+          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores"/>
+          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.methodComment"/>
         </div>
       </div>
     </div>
@@ -239,20 +224,18 @@
           </div>
         </div>
 
-  <ng-form class="form-horizontal" name="packingForm" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || packingForm.scores.$touched) && (packingForm.scores.$error.required || packingForm.scores.$error.score)}]">
+  <ng-form class="form-horizontal" novalidate>
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
               <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores" score required/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.packingComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || packingForm.scores.$touched">
-              <div ng-show="packingForm.scores.$error.required || packingForm.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+              <div class="controls">
+          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores"/>
+          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.packingComment"/>
         </div>
       </div>
     </div>
   </ng-form>
+
       <!-- end of text box -->
       <!-- Storage text box -->
     <div class="row-fluid">
@@ -273,10 +256,12 @@
                   <label class="control-labels">Please select your storage file here:</label>
                     <div class="uploader" >
                         <input
-                          type="file" 
+                          type="file"
+                          accept="application/pdf"
+                          name="storage" 
                           nv-file-select 
-                          uploader="$ctrl.uploader"/>
-                      <span class="filename">{{$ctrl.uploader.queue[0].file.name || 'No file selected'}}</span>
+                          uploader="$ctrl.uploader[0]"/>
+                      <span class="filename">{{$ctrl.uploader[0].queue[0].file.name || 'No file selected'}}</span>
                       <span class="action">Choose File</span>
                     </div>
                 </div>
@@ -284,7 +269,7 @@
             </div>
           
               <pdf-viewer 
-                  ng-if="$ctrl.viewOnlyMode"
+                  ng-if="$ctrl.storageFileUrl"
                   src="$ctrl.storageFileUrl"
                   height="$ctrl.labelHeight" 
                   on-page-load="$ctrl.pageLoaded(page,total)" 
@@ -295,19 +280,17 @@
           </div>
         </div>
 
-          <ng-form class="form-horizontal" name="storageLabel" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || storageLabel.scores.$touched) && (storageLabel.scores.$error.required || storageLabel.scores.$error.score)}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+  <ng-form class="form-horizontal" name="storageLabel" novalidate>
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
+        <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
-          <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores" score required/>
-          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.storageComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || storageLabel.scores.$touched">
-              <div ng-show="storageLabel.scores.$error.required || storageLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+          <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores"/>
+          <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.storageComment"/>
         </div>
       </div>
     </div>
+
   </ng-form>
     </div>
       <!-- end of text box -->
@@ -329,17 +312,19 @@
                   <label class="control-labels">Please select your storage file here:</label>
                     <div class="uploader">
                       <input   
-                        type="file" 
+                        type="file"
+                        name="mainLabel" 
+                        accept="application/pdf"
                         nv-file-select 
-                        uploader="$ctrl.uploader"/>
-                      <span class="filename">{{$ctrl.uploader.queue[0].file.name || 'No file selected'}}</span>
+                        uploader="$ctrl.uploader[1]"/>
+                      <span class="filename">{{$ctrl.uploader[1].queue[0].file.name || 'No file selected'}}</span>
                       <span class="action">Choose File</span>
                     </div>
                 </div>
               </ng-form>
             </div>
                 <pdf-viewer 
-                    ng-if="$ctrl.viewOnlyMode"
+                    ng-if="$ctrl.mainLabelFileUrl"
                     src="$ctrl.mainLabelFileUrl" 
                     height="$ctrl.labelHeight" 
                     on-page-load="$ctrl.pageLoaded(page,total)" 
@@ -350,19 +335,18 @@
       </div>
 
 
-        <ng-form class="form-horizontal" name="mainLabel" novalidate>
-    <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || mainLabel.scores.$touched) && (mainLabel.scores.$error.required || mainLabel.scores.$error.score)}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+  <ng-form class="form-horizontal" novalidate>
+
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
+        <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
-          <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores" score required/>
-          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.mainLabelComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || mainLabel.scores.$touched">
-              <div ng-show="mainLabel.scores.$error.required || mainLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
+          <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores"/>
+          <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.mainLabelComment"/>
         </div>
       </div>
     </div>
+
   </ng-form>
   </div>
   </div>
@@ -384,17 +368,468 @@
                   <label class="control-labels">Please select your storage file here:</label>
                   <div class="uploader">
                     <input 
-                      type="file" 
+                      type="file"
+                      accept="application/pdf"
+                      name="auxLabel" 
                       nv-file-select 
-                      uploader="$ctrl.uploader"/>
-                    <span class="filename">{{$ctrl.uploader.queue[0].file.name || 'No file selected'}}</span>
+                      uploader="$ctrl.uploader[2]"/>
+                    <span class="filename">{{$ctrl.uploader[2].queue[0].file.name || 'No file selected'}}</span>
                     <span class="action">Choose File</span>
                   </div>
                 </div>
               </ng-form>
             </div>
                 <pdf-viewer 
-                    ng-if="$ctrl.viewOnlyMode"
+                    ng-if="$ctrl.optionAuxLabelFileUrl"
+                    src="$ctrl.optionAuxLabelFileUrl"
+                    height="$ctrl.labelHeight"  
+                    on-page-load="$ctrl.pageLoaded(page,total)" 
+                    instance-id="$ctrl.prescription.id">
+                </pdf-viewer>
+          </div>
+        </div>
+      </div>
+
+  <ng-form class="form-horizontal" novalidate>
+
+    <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
+      <div ng-class="control-group">
+              <label class="control-label">Scores &amp; Comment:</label>
+              <div class="controls">
+                <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores"/>
+                <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.auxComment"/>
+        </div>
+      </div>
+    </div>
+
+  </ng-form>
+  </div>
+  
+  </div>
+    <!-- end of label box -->
+<!-- end of label -->
+<!-- assignment save -->
+<hr>
+        <div ng-if="$ctrl.viewOnlyMode">
+            <h5>Total Scores: {{$ctrl.totalScores}}</h5>
+        </div>
+
+<div class="form-actions" ng-if="!$ctrl.viewOnlyMode">
+  <button  type="submit" class="btn btn-warning" ng-click="$ctrl.submitByStudent(false)">Save</button>
+  <button  type="submit" class="btn btn-success" ng-click="$ctrl.submitByStudent(true)">Submit</button>
+</div>
+<!-- end of save -->
+<!-- error -->
+    <div ng-show="$ctrl.assignmentForm.$submitted || $ctrl.assignmentForm.$touched">
+      <div class="alert alert-error" ng-if="$ctrl.error" ng-repeat = "item in $ctrl.error track by $index">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Error!</strong> {{item}} </div>
+      <div class="alert alert-success" ng-if="$ctrl.success" ng-repeat="item in $ctrl.success track by $index">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Success!</strong> {{item}} </div>
+    </div>
+
+      <div class="alert alert-info" ng-if="$ctrl.info">
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>Note:</strong> {{$ctrl.info}} </div>
+
+  <!-- end of data table -->
+</form>
+
+<!-- /**************************Instructor template*******************************************8***/ -->
+
+  <form name="$ctrl.assignmentForm" ng-if="$ctrl.isInstructor" novalidate>
+    <div class="widget-box collapsible">
+      <div class="widget-title"> 
+      <a href="javascript:;" data-target="#material" data-toggle="collapse"> 
+      <span class="icon"><i class="icon-arrow-right"></i></span>
+        <h5>Additional Materials</h5>
+        </a>
+      </div>
+      <div class="" id="material">
+        <div class="widget-content"> {{$ctrl.additional}} </div>
+      </div>
+    </div>
+
+    <div class="widget-box">
+      <div class="widget-title"> 
+        <a href="javascript:;" data-target="#prescription" data-toggle="collapse"> 
+        <span class="icon"> <i class="icon-plus-sign"></i> </span>
+        <h5>THE PRESCRIPTION</h5>
+        </a>
+        </div>
+        <!-- Prescription form -->
+    <div class="" id="prescription">
+      <div class="widget-content nopadding">
+        <table class="table table-bordered table-striped">
+              <pdf-viewer 
+                  src="$ctrl.prescriptionFileUrl" 
+                  on-page-load="$ctrl.pageLoaded(page,total)" 
+                  instance-id="$ctrl.prescription.id">
+              </pdf-viewer>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+      <!-- end of prescription form -->
+      <!-- Static Input Formulation form-->
+      <div class="widget-box">
+        <div class="widget-title">
+          <a href="javascript:;" data-target="#formulation" data-toggle="collapse"> 
+          <h5>1. Formulation</h5>
+          </a>
+        </div>
+
+        <div class="collapse" id="formulation">
+        <div class="widget-content nopadding">
+        <ng-form action="#" method="get" class="form-horizontal">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name of Ingredient</th>
+                <th>Official Quantity (mg)</th>
+                <th>Quantity Used (mg)</th>
+                <th>Actual Quantity Weighted (mg)</th>
+                <th>Signed by Pharcist</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="item in $ctrl.form.formulation track by $index" class="odd gradeX">
+                <td>
+                  <div class="control-group">
+                  <div class="controls span12">
+
+                  <input disabled type="text" class="span11" ng-model="item.ingredient_name" />
+      
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                <input disabled type="text" class="span11"  ng-model="item.official_quantity"/>
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input disabled type="text" class="span11"  ng-model="item.used_quantity" />
+                </div>
+              </div>
+            </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input disabled type="text" class="span11"  ng-model="item.actual_quantity_weighted"/>
+                </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                <div class="controls span12">
+                  <input ng-if="$ctrl.evaluateMode" type="text" class="span11" placeholder="signature" ng-model="item.signature" />
+                  <input ng-if="!$ctrl.evaluateMode" disabled type="text" class="span11" placeholder="signature" ng-model="item.signature" />
+                </div>
+                </div>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-form>
+        </div>
+
+      </div>
+      </div>
+
+  <!-- scores evaluation  -->
+  <ng-form class="form-horizontal" name="formulation" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || formulation.scores.$touched) && formulation.scores.$error.score}]">
+              <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input 
+            type="text" 
+            class="span2" 
+            name="scores" 
+            placeholder="Scores:" 
+            ng-model="$ctrl.formulationScores" 
+            score 
+            />
+          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.formulationComment"/>
+            <div ng-show="$ctrl.assignmentForm.$submitted || formulation.scores.$touched">
+              <div ng-show="formulation.scores.$error.required || formulation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-form>
+      <!-- end of static table -->
+      <!-- Calculation text box -->
+      <div class="widget-box">
+        <div class="widget-title">
+          <a href="javascript:;" data-target="#calculation" data-toggle="collapse"> 
+            <h5>2. Calculation</h5>
+          </a>
+        </div>
+        <div class="collapse" id="calculation">
+        <div class="widget-content">
+          <div class="control-group">
+            <ng-form>
+              <div class="controls">
+                <textarea disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea>
+              </div>
+            </ng-form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <ng-form class="form-horizontal" name="calculation" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || calculation.scores.$touched) && calculation.scores.$error.score}]">
+              <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores" score />
+          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.calculationComment"/>
+            <div ng-show="$ctrl.assignmentForm.$submitted || calculation.scores.$touched">
+              <div ng-show="calculation.scores.$error.required || calculation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </ng-form>
+
+      <!-- end of text box -->
+      <!-- Packing text box -->
+      <div class="widget-box">
+        <div class="widget-title">
+          <a href="javascript:;" data-target="#method" data-toggle="collapse"> 
+          <h5>3. Method</h5>
+          </a>
+        </div>
+        <div class="collapse" id="method">
+        <div class="widget-content">
+          <div class="control-group">
+            <ng-form>
+              <div class="controls">
+                <textarea class="textarea_editor span12" disabled rows="6" ng-model="$ctrl.form.method"></textarea>
+              </div>
+            </ng-form>
+          </div>
+        </div>
+        </div>
+      </div>
+
+  <ng-form class="form-horizontal" name="method" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || method.scores.$touched) && method.scores.$error.score}]">
+              <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores" score/>
+          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.methodComment"/>
+            <div ng-show="$ctrl.assignmentForm.$submitted || method.scores.$touched">
+              <div ng-show="method.scores.$error.required || method.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </ng-form>
+      <!-- end of text box -->
+
+
+      <!-- Packing text box -->
+        <div class="widget-box">
+          <div class="widget-title">
+            <a href="javascript:;" data-target="#packing" data-toggle="collapse"> 
+            <h5>4. Packing</h5>
+            </a>
+          </div>
+          <div class="collapse" id="packing">
+          <div class="widget-content">
+            <div class="control-group">
+              <ng-form>
+                <div class="controls">
+                  <textarea disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                </div>
+              </ng-form>
+            </div>
+          </div>
+          </div>
+        </div>
+
+  <ng-form class="form-horizontal" name="packing" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || packing.scores.$touched) packing.scores.$error.score}]">
+              <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores" score/>
+          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.packingComment"/>
+            <div ng-show="$ctrl.assignmentForm.$submitted || packing.scores.$touched">
+              <div ng-show="packing.scores.$error.required || packing.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-form>
+
+      <!-- end of text box -->
+      <!-- Storage text box -->
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title">
+           <a href="javascript:;" data-target="#storage" data-toggle="collapse">
+            <h5>5. Storage Condition</h5>
+            </a>
+          </div>
+        <div class="" id="storage">
+          <div class="widget-content">
+
+          <!-- if no file is presented -->
+            <div class="control-group" ng-if="!$ctrl.viewOnlyMode">
+              <ng-form>
+                <div class="controls" >
+                  <label class="control-labels">Please select your storage file here:</label>
+                    <div class="uploader" >
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          name="storage" 
+                          nv-file-select 
+                          uploader="$ctrl.uploader[0]"/>
+                      <span class="filename">{{$ctrl.uploader[0].queue[0].file.name || 'No file selected'}}</span>
+                      <span class="action">Choose File</span>
+                    </div>
+                </div>
+              </ng-form>
+            </div>
+          
+              <pdf-viewer 
+                  ng-if="$ctrl.storageFileUrl"
+                  src="$ctrl.storageFileUrl"
+                  height="$ctrl.labelHeight" 
+                  on-page-load="$ctrl.pageLoaded(page,total)" 
+                  instance-id="$ctrl.prescription.id">
+              </pdf-viewer>
+            <!-- if pdf url is presented -->
+          </div>
+          </div>
+        </div>
+
+  <ng-form class="form-horizontal" name="storageLabel" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || storageLabel.scores.$touched) && storageLabel.scores.$error.score}]">
+        <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores" score/>
+          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.storageComment"/>
+
+            <div ng-show="$ctrl.assignmentForm.$submitted || storageLabel.scores.$touched">
+              <div ng-show="storageLabel.scores.$error.required || storageLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-form>
+    </div>
+      <!-- end of text box -->
+
+  <!-- end of storage -->
+    <!-- Main Label text box -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title">
+          <a href="javascript:;" data-target="#mainlabel" data-toggle="collapse">
+            <h5>6. Main Label</h5>
+          </a>
+        </div>
+        <div class="" id="mainlabel">
+          <div class="widget-content">
+            <div class="control-group" ng-if="!$ctrl.viewOnlyMode">
+              <ng-form>
+                <div class="controls">
+                  <label class="control-labels">Please select your storage file here:</label>
+                    <div class="uploader">
+                      <input   
+                        type="file"
+                        name="mainLabel" 
+                        accept="application/pdf"
+                        nv-file-select 
+                        uploader="$ctrl.uploader[1]"/>
+                      <span class="filename">{{$ctrl.uploader[1].queue[0].file.name || 'No file selected'}}</span>
+                      <span class="action">Choose File</span>
+                    </div>
+                </div>
+              </ng-form>
+            </div>
+                <pdf-viewer 
+                    ng-if="$ctrl.mainLabelFileUrl"
+                    src="$ctrl.mainLabelFileUrl" 
+                    height="$ctrl.labelHeight" 
+                    on-page-load="$ctrl.pageLoaded(page,total)" 
+                    instance-id="$ctrl.prescription.id">
+                </pdf-viewer>
+          </div>
+        </div>
+      </div>
+
+
+  <ng-form class="form-horizontal" name="mainLabel" novalidate>
+    <div ng-if="$ctrl.evaluateMode" class="widget-box">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || mainLabel.scores.$touched) && mainLabel.scores.$error.score}]">
+        <label class="control-label">Scores &amp; Comment:</label>
+        <div class="controls">
+          <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores" score/>
+          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.mainLabelComment"/>
+
+            <div ng-show="$ctrl.assignmentForm.$submitted || mainLabel.scores.$touched">
+              <div ng-show="mainLabel.scores.$error.required || mainLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-form>
+  </div>
+  </div>
+    <!-- end of text box -->
+    <!-- Auxiliary text box -->
+    <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title">
+          <a href="javascript:;" data-target="#auxLabel" data-toggle="collapse">
+            <h5>7. Auxiliary Labels</h5>
+          </a>
+        </div>
+        <div class="" id="auxLabel">
+          <div class="widget-content">
+            <div class="control-group" ng-if="!$ctrl.viewOnlyMode">
+              <ng-form>
+                <div class="controls">
+                  <label class="control-labels">Please select your storage file here:</label>
+                  <div class="uploader">
+                    <input 
+                      type="file"
+                      accept="application/pdf"
+                      name="auxLabel" 
+                      nv-file-select 
+                      uploader="$ctrl.uploader[2]"/>
+                    <span class="filename">{{$ctrl.uploader[2].queue[0].file.name || 'No file selected'}}</span>
+                    <span class="action">Choose File</span>
+                  </div>
+                </div>
+              </ng-form>
+            </div>
+                <pdf-viewer 
+                    ng-if="$ctrl.optionAuxLabelFileUrl"
                     src="$ctrl.optionAuxLabelFileUrl"
                     height="$ctrl.labelHeight"  
                     on-page-load="$ctrl.pageLoaded(page,total)" 
@@ -406,17 +841,20 @@
 
   <ng-form class="form-horizontal" name="auxLabel" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
-      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || auxLabel.scores.$touched) && (auxLabel.scores.$error.required || auxLabel.scores.$error.score)}]">
+      <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || auxLabel.scores.$touched) && auxLabel.scores.$error.score}]">
               <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores" score required/>
-          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.auxComment"/>
-            <div ng-show="$ctrl.assignmentForm.$submitted || auxLabel.scores.$touched">
-              <div ng-show="auxLabel.scores.$error.required || auxLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
-            </div>
-        </div>
+              
+              <div class="controls">
+                <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores" score/>
+                <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.auxComment"/>
+
+                <div ng-show="$ctrl.assignmentForm.$submitted || auxLabel.scores.$touched">
+                  <div ng-show="auxLabel.scores.$error.required || auxLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
+                </div>
+              </div>
       </div>
     </div>
+
   </ng-form>
   </div>
   
@@ -425,23 +863,23 @@
 <!-- end of label -->
 <!-- assignment save -->
 <hr>
-        <div ng-if="$ctrl.evaluateMode">
+        <div ng-if="$ctrl.viewOnlyMode">
             <h5>Total Scores: {{$ctrl.totalScores}}</h5>
         </div>
 
-<div class="form-actions">
-  <button ng-if="!$ctrl.evaluateMode" type="submit" class="btn btn-warning">Save</button>
-  <button type="submit" class="btn btn-success" ng-click="$ctrl.assignmentForm.$valid && $ctrl.submit()">Submit</button>
+<div class="form-actions" ng-if="$ctrl.evaluateMode">
+  <button  type="submit" class="btn btn-success" ng-click="$ctrl.submit()">Submit</button>
+  <!-- $ctrl.assignmentForm.$valid  -->
 </div>
 <!-- end of save -->
 <!-- error -->
     <div ng-show="$ctrl.assignmentForm.$submitted || $ctrl.assignmentForm.$touched">
-      <div class="alert alert-error" ng-if="$ctrl.error">
+      <div class="alert alert-error" ng-if="$ctrl.error" ng-repeat="item in $ctrl.error track by $index">
           <button class="close" data-dismiss="alert">×</button>
-          <strong>Error!</strong> {{$ctrl.error}} </div>
-      <div class="alert alert-success" ng-if="$ctrl.success">
+          <strong>Error!</strong> {{item}} </div>
+      <div class="alert alert-success" ng-if="$ctrl.success" ng-repeat="item in $ctrl.success track by $index">
           <button class="close" data-dismiss="alert">×</button>
-          <strong>Success!</strong> {{$ctrl.success}} </div>
+          <strong>Success!</strong> {{item}} </div>
     </div>
 
       <div class="alert alert-info" ng-if="$ctrl.info">
@@ -451,5 +889,9 @@
   <!-- end of data table -->
 </form>
 
-<!-- </div>
+
+
+
+
+
 

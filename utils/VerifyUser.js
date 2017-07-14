@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config');
 
 exports.getToken = function(user){
-  return jwt.sign(user,config.secretKey,{
+  return jwt.sign(user,(config.secretKey ||""),{
     algorithm: 'HS256',
     expiresIn: "7d"
   });

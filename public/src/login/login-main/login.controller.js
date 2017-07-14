@@ -16,7 +16,6 @@
       var data = ajaxUploadService.login($ctrl.username,$ctrl.password);
       
       data.then(function (res){
-        console.log(res);
         if(res.data.is_instructor){
           $state.go('instructor');
         }else{
@@ -29,8 +28,6 @@
             $ctrl.error = res.data.error;
           }
       });
-
-      // $state.go('instructor');
     };
 
     $ctrl.valid = function() {

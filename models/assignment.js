@@ -19,7 +19,7 @@ var assignment_schema = new schema({
 		},
 	student: {
 		type: schema.Types.ObjectId,
-		ref: 'student',
+		ref: 'user',
 		required:true
 	}
 },{

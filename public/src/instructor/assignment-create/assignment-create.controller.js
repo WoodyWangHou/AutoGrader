@@ -10,14 +10,14 @@
   'instructorInterfaceInitService',
   'ajaxUploadService',
   '$element',
-  '$q'];
+  '$timeout'];
   function assignmentCreateController(
     $state,
     $stateParams,
     instructorInterfaceInitService,
     ajaxUploadService,
     $element,
-    $q){
+    $timeout){
 
     var validFileTypes = ['application/pdf','image/*'];
     var $ctrl = this;
@@ -30,7 +30,7 @@
     }
     
     var getStudentListFailed = function(res){
-      console.log("Failed: ",res);
+      $ctrl.error.push(res.data);
     }
 
     var studentComparator = function(a,b){
@@ -98,17 +98,53 @@
     $ctrl.selectedStudents = [];//array holding the selected students value
     $ctrl.selected=[];
     $ctrl.isSelected = false;
+    $ctrl.isFileSelected = false;
+    $ctrl.submitted = false;
+    $ctrl.success = [];
+    $ctrl.error = [];
     // set date picker
     ui.setDatepicker($element);
 
     // config file uploader
-    $ctrl.uploader = ajaxUploadService.getAssignmentFileUploader();
     $ctrl.validFile = true;
     // student list section
     var studentList=instructorInterfaceInitService.getStudents();
     
     // get students
     $ctrl.$onInit = function(){
+      $ctrl.uploader = ajaxUploadService.getAssignmentFileUploader();
+      $ctrl.uploader.onAfterAddingFile = function(item){
+      if ($ctrl.uploader.queue.length > 1) {
+        $ctrl.uploader.queue.splice(0, 1);
+      }
+      $ctrl.isFileSelected = true;
+      $ctrl.validateUpload();
+    }
+
+    $ctrl.uploader.onSuccessItem = function(item, response, status, headers){
+      $ctrl.success.push(response);
+      $ctrl.form.$submitted = false;
+    }
+
+    $ctrl.uploader.onErrorItem = function(item, response, status, headers) {
+      $ctrl.error.push(status.toString);
+      $ctrl.form.$submitted = false;
+    }
+
+    $ctrl.uploader.onBeforeUploadItem = function(item){
+      var data = {};
+      var counter = 0;
+      for(var student in $ctrl.selectedStudents){
+        data['selectedStudents'+counter+'matric_number'] = $ctrl.selectedStudents[student].matric_number;
+        data['selectedStudents'+counter+'name'] = $ctrl.selectedStudents[student].name;
+        counter++;
+      }
+      data.assignment_name = $ctrl.assignment_name;
+      data.assignment_description=$ctrl.assignment_description;
+      data.additional_material=$ctrl.additional_material;
+      data.deadline = $ctrl.deadline;
+      item.formData.push(data);
+    }
       studentList.then(getStudentListSuccess,getStudentListFailed);
     }
 
@@ -127,44 +163,15 @@
          $ctrl.isSelected = false;
         }
       }
-      console.log('any student selected:',$ctrl.isSelected);
-      // console.log('selected students are:',$ctrl.selectedStudents);
-    }
-
-    $ctrl.uploader.onAfterAddingFile = function(item){
-      if ($ctrl.uploader.queue.length > 1) {
-        $ctrl.uploader.queue.splice(0, 1);
-      }
-      $ctrl.validateUpload();
-    }
-
-    $ctrl.uploader.onSuccessItem = function(item, response, status, headers){
-      $ctrl.success = response;
-    }
-
-    $ctrl.uploader.onErrorItem = function(item, response, status, headers) {
-      $ctrl.error = status.toString();
-    }
-
-    $ctrl.uploader.onBeforeUploadItem = function(item){
-      // console.log("Selected Students is:",$ctrl.selectedStudents);
-      var data = {};
-      var counter = 0;
-      for(var student in $ctrl.selectedStudents){
-        data['selectedStudents'+counter+'matric_number'] = $ctrl.selectedStudents[student].matric_number;
-        data['selectedStudents'+counter+'name'] = $ctrl.selectedStudents[student].name;
-        counter++;
-      }
-      // console.log("data is:",data);
-      data.assignment_name = $ctrl.assignment_name;
-      data.assignment_description=$ctrl.assignment_description;
-      data.additional_material=$ctrl.additional_material;
-      data.deadline = $ctrl.deadline;
-      item.formData.push(data);
     }
 
     $ctrl.submit = function(){
-        return $ctrl.uploader.uploadAll();
+      if($ctrl.validFile && $ctrl.isFileSelected && $ctrl.isSelected && $ctrl.form.$valid){
+         $ctrl.form.$submitted = true;
+         $ctrl.uploader.uploadAll();
+      }else{
+        $ctrl.form.$submitted = false;
+      }
     }
 
     var isValidType = function(acceptTypes,fileType){
@@ -203,15 +210,6 @@
         }
       }else{
         $ctrl.validFile = false; // no file selected
-      }
-    }
-
-    $ctrl.isFileSelected = function(){
-      if($ctrl.uploader.queue.length === 0){
-        $ctrl.validFile = false;
-        return false;
-      }else{
-        return true;
       }
     }
   } // end of controller

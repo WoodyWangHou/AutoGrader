@@ -9,7 +9,6 @@ instructorInterfaceInitService.$inject= [
 'STUDENT_ICON',
 'INSTRUCTOR_STATE',
 'INSTRUCTOR_ICON',
-'userInterfaceInitService',
 '$http',
 'REMOTE_SERVER',
 'REQUEST_URL'];
@@ -18,7 +17,6 @@ function instructorInterfaceInitService(
   STUDENT_ICON,
   INSTRUCTOR_STATE,
   INSTRUCTOR_ICON,
-  userInterfaceInitService,
   $http,
   REMOTE_SERVER,
   REQUEST_URL) {
@@ -28,6 +26,9 @@ function instructorInterfaceInitService(
   service.actionBox = [];
   service.assignment = [];
 
+  /************************************
+    below are UI initiator
+  *************************************/  
   service.menu = [
     {
       name:'Home',
@@ -58,7 +59,7 @@ function instructorInterfaceInitService(
   service.getInstructorMenu = function (state) {
       clearActiveMenu();
       return setActiveMenu(state);
-  };
+  }
 
   var clearActiveMenu = function(){
     for(var i =0;i<service.menu.length;i++){
@@ -174,7 +175,6 @@ function instructorInterfaceInitService(
   }
 
   service.getActionBox = function(){
-    // need to insert async service to fetch assignments
     service.actionBox = [
     {
       style: "bg_ly",
@@ -192,17 +192,14 @@ function instructorInterfaceInitService(
     return service.actionBox;
   }
 
+  /*************************************
+      below are backend request helpers
+  **************************************/ 
+
   service.getRecentStudentSubmission = function(){
-    return userInterfaceInitService.getStudentAssignmentById();
-  }
-
-  service.getSubmissionProgress = function(){
-      var assignments = [];
-      // pull all assignments from server
-      assignments.push(userInterfaceInitService.getStudentAssignmentById('A0078679A'));
-      assignments.push(userInterfaceInitService.getStudentAssignmentById('A0078679B'));
-
-      return getSubmissionResultFromServer(assignments);
+    var url = REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.PENDINGEVALUATION;
+    var submission = $http.get(url);
+    return submission;
   }
 
   service.getAssignmentSubmission = function(assignmentId){
@@ -216,78 +213,21 @@ function instructorInterfaceInitService(
         return submission;
   }
 
-  var getSubmissionResultFromServer = function(assignments){
-    var nameOfAssignments = [];
-    var progress = {};
-    var result = {};
-
-    result = getSubmissionResult(assignments);
-    nameOfAssignments = service.getAllAssignmentNames();
-
-      progress = {title:"Assignment Submission Progress"};
-      progress.progressTable = [];
-      
-      for(var i =0;i<nameOfAssignments.length;i++){
-        var temp = {
-            rowTitle:nameOfAssignments[i].name,
-            value:result[nameOfAssignments[i].name]+"/"+result[nameOfAssignments[i].name+"Total"],
-            percent:((result[nameOfAssignments[i].name]*100)/(result[nameOfAssignments[i].name+"Total"]*100))*100
-          };
-        progress.progressTable.push(temp);
-        }
-
-     return progress;
-  }
-
-  var getSubmissionResult = function(assignments){
-        var result = {};
-
-        for(var i = 0; i<assignments.length;i++){
-        for(var j = 0; j<assignments[i].length;j++){
-        if(assignments[i][j].submissionDate){
-
-            if(!result[assignments[i][j].assignmentName]){
-              result[assignments[i][j].assignmentName] = 1;
-            }
-            else{
-              result[assignments[i][j].assignmentName]++;
-            }
-          }
-
-            if(!result[assignments[i][j].assignmentName+"Total"]){
-              result[assignments[i][j].assignmentName+"Total"] = 1;
-            }else{
-              result[assignments[i][j].assignmentName+"Total"]++;   
-            }
-          }
-        }
-        return result;
-  }
-
   service.getAllAssignmentNames = function(){
     var assignmentList = $http.get(REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.ASSIGNMENT_LIST);
     return assignmentList;
   }
 
-  service.getAllStudentsByAssignments = function(assignment_id){
+  service.getAllStudentsByAssignments = function(template_id){
     var config = {
       params:{
-        assignment_id:assignment_id
+        template_id:template_id
       }
     };
     var url = REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.STUDNETS_IN_ASSIGMENT;
     var students = $http.get(url,config);
     return students;
   }
-
-  var isExist = function(assignment,nameOfAssignments){
-        for(var i = 0;i<nameOfAssignments.length;i++){
-          if(nameOfAssignments[i].name === assignment.assignmentName){
-            return true;
-          }
-        }
-        return false;
-  };
 
   service.getAssignmentById = function(assignmentId){
       var config = {
@@ -299,107 +239,38 @@ function instructorInterfaceInitService(
       var assignment = $http.get(url,config);
       return assignment;
     }
-
-// for assignment.form additional materials, ajax to pull data
-  service.getAssignmentAdditionalMaterialById = function(assignmentId){
-    return "Test: Additional Materials";
-  }
-
   service.getStudents = function(){
     var studentList = $http.get(REMOTE_SERVER+REQUEST_URL.STUDENT+REQUEST_URL.STUDENT_LIST);
 
     return studentList;
   }
 
-// download list of students, categorized by assignments
-  service.getStudentsByAssignmentId = function(assignmentGroupId){
-    var students = [];
+  service.evaluationSubmitUrl = function(){
+    return (REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.EVALUATION);
+  }
 
-    var students = [{
-           // assignment
-          assignmentName:"Lecture 1 - Assignment 1",
-          assignmentGroupId:"1",
-          deadline:"10/03/2017",
-          description:"Woody Wang's assignment 1",
-          prescriptionUrl:"img/Prescription.jpg",
-          //user
-          students:[
-            {
-              matricNubmer:"A0078697A",
-              name:"Wang Hou",
-              submissionDate:"30/02/2017",
-              inProgress:false,
-              scores:-1,
-              assignmentId:"3",
-              status:"submitted"
-            },{
-              matricNubmer:"A0078679B",
-              name:"Woody Wang",
-              submissionDate:"30/04/2017",
-              assignmentId:"1",
-              scores:-1,
-              inProgress:false,
-              status:"submitted"
-            }
-          ]
-        },
-        {
-           // assignment
-          assignmentName:"Lecture 2 - Assignment 2",
-          assignmentGroupId:"2",
-          deadline:"13/02/2017",
-          description:"Woody Wang's assignment 2",
-          prescriptionUrl:"img/Prescription.jpg",
-          //user
-          students:[
-            {
-              matricNubmer:"A0078697A",
-              name:"Wang Hou",
-              submissionDate:"30/02/2017",
-              assignmentId:"4",
-              inProgress:false,
-              scores:-1,
-              status:"submitted"
-            },{
-              matricNubmer:"A0078679B",
-              name:"Woody Wang",
-              submissionDate:"30/04/2017",
-              assignmentId:"2",
-              inProgress:false,
-              scores:-1,
-              status:"submitted"
-            }
-          ]
-    }];
+  /*********
+    util helpers
+  ********/ 
+  service.numberToMonth = function(number){
+  if(number>=0 && number<12){
+    let months = ["January","February","March","April","May","June","July",
+          "August","September","October","November","December"];
 
-    for(var i=0;i<students.length;i++){
-        if(assignmentGroupId == students[i].assignmentGroupId){
-          return students[i].students;
-        }
+      return months[number];
+    }else{
+      return number;
     }
-  } 
+  }
 
-    service.getNewAssignmentId = function(){
-      //ajax to backend and get a new id
-      const ID_LENGTH = 22;
+  service.removeAssignment = function(assignmentId){
 
-      return random_base64(ID_LENGTH);
-    }
+  }
 
-    var random_base64 = function(length){
-      var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
-      var str="";
+  service.removeAllAssignment = function(templateId){
 
-      for(var i =0;i<length;i++){
-        var rand = Math.floor((Math.random()*Date.now())%1*ALPHABET.length);
-        str += ALPHABET.slice(rand,rand+1);
-      }
+  }
 
-      return str;
-    }
 
-    service.evaluationSubmitUrl = function(){
-      return (REMOTE_SERVER+REQUEST_URL.INSTRUCTOR+REQUEST_URL.EVALUATION);
-    }
 }
 })();

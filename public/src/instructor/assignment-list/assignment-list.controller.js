@@ -2,33 +2,32 @@
     angular.module('instructor')
     .controller('instrucAssignmentListController',instrucAssignmentListController);
 
-    instrucAssignmentListController.$inject = ['instructorInterfaceInitService','userInterfaceInitService','$stateParams'];
-    function instrucAssignmentListController(instructorInterfaceInitService,userInterfaceInitService,$stateParams) {
+    instrucAssignmentListController.$inject = [
+    'instructorInterfaceInitService',
+    'userInterfaceInitService',
+    '$stateParams',
+    'ajaxUploadService',
+    '$state'];
+    function instrucAssignmentListController(
+      instructorService,
+      userInterfaceInitService,
+      $stateParams,
+      uploadService,
+      $state) {
       var $ctrl = this;
       var ui = new UIInit();
 
       $ctrl.isInstructor = true;
 
-      $ctrl.name = instructorInterfaceInitService.getName();
+      $ctrl.name = instructorService.getName();
       $ctrl.title = ui.getListDescription();
       $ctrl.column = ui.getColumn();
       $ctrl.detail ={};
+      $ctrl.toState = "instructor";
 
-      var assignmentList = instructorInterfaceInitService.getAllAssignmentNames();
-
-      var numberToMonth = function(number){
-        if(number>0 && number<12){
-          let months = ["January","February","March","April","May","June","July",
-          "August","September","October","November","December"];
-
-          return months[number-1];
-        }else{
-          return number;
-        }
-      }
+      var assignmentList = instructorService.getAllAssignmentNames();
 
       var assignment_mapping = function(target,source){
-        console.log('the list is:',source);
         for(var i = 0;i<source.length;i++){
           var temp = {};
           for(var field in source[i]){
@@ -39,10 +38,10 @@
               temp.description = source[i][field];
             }else if(field.indexOf('deadline')!== -1){
               var date = new Date(source[i][field]);
-              var str = date.getDate() + '-' + numberToMonth(date.getMonth()) + '-' + date.getFullYear();
+              var str = date.getDate() + '-' + instructorService.numberToMonth(date.getMonth()) + '-' + date.getFullYear();
               temp.deadline = str;
             }
-            temp.assignmentId = source[i]._id;
+            temp.templateId = source[i]._id;
           }
           target.push(temp);
         }
@@ -50,25 +49,30 @@
 
       var getStudentsNames = function(){
           for(var i = 0;i<$ctrl.assignments.length;i++){
-            var student = instructorInterfaceInitService.getAllStudentsByAssignments($ctrl.assignments[i].assignmentId);
+            var student = instructorService.getAllStudentsByAssignments($ctrl.assignments[i].templateId);
             (function(student,index){
               student.then((res)=>{
-               $ctrl.assignments[index].students = res.data;
-               // console.log(res.data);
-              $ctrl.assignments[index]['detail'] = [];
-              for(var j=0;j<$ctrl.assignments[index].students.length;j++){
-                var student = $ctrl.assignments[index].students[j].student;
-                var submit = $ctrl.assignments[index].students[j].submission;
-                var temp = {
-                  username:student.username,
-                  name:student.first_name+' '+student.last_name,
-                  submissionDate:submit.submissionDate ||'N/A',
-                  status_scores:submit.socres || submit.status || 'N/A',
-                  $name:student.first_name+' '+student.last_name,
-                  $id:$ctrl.assignments[index].students[j].submission.assignment
-                };
-                $ctrl.assignments[index]['detail'].push(temp);
-              }
+                $ctrl.assignments[index].students = res.data;
+                $ctrl.assignments[index]['detail'] = [];
+                for(var j=0;j<$ctrl.assignments[index].students.length;j++){
+                  var student = $ctrl.assignments[index].students[j].student;
+                  var submit = $ctrl.assignments[index].students[j].submission;
+
+                  var temp = {
+                    username:student.username,
+                    name:student.first_name+' '+student.last_name,
+                    submissionDate:submit.submission_date || 'N/A',
+                    status_scores:submit.scores || submit.status || 'N/A',
+                    $name:student.first_name+' '+student.last_name,
+                    $id:$ctrl.assignments[index].students[j].submission.assignment
+                  };
+
+                  if(submit.submission_date){
+                    var date = new Date(submit.submission_date);
+                    temp['submissionDate'] = (date.getDate() + '-' + instructorService.numberToMonth(date.getMonth()) + '-' + date.getFullYear());
+                  }
+                  $ctrl.assignments[index]['detail'].push(temp);
+                }
 
               },getStudentsNamesFail);
             })(student,i);
@@ -79,23 +83,31 @@
         console.log('Get student names failed:',res.data);
       }
 
-      var getAssignmentListSuccess = function(res){
-        if(res.data){
-          $ctrl.assignments = [];
-          assignment_mapping($ctrl.assignments,res.data);
-          console.log('$ctrl.assignments is:',$ctrl.assignments);
-
-          getStudentsNames();
-        }
-      }
-
-      var getAssignmentListFail = function(res){
-        console.log('Failed:',res.data);
+      $ctrl.deleteAssignment = function(template_id){
+        var deletetask = uploadService.deleteTemplateById(template_id);
+        deletetask.then(function(res){
+          $state.transitionTo($state.current, $stateParams, {
+              reload: true,
+              inherit: false,
+              notify: true
+          });
+        },function(err){
+          console.log(err.data);
+        });
       }
 
       $ctrl.$onInit = function(){
-        assignmentList.then(getAssignmentListSuccess,getAssignmentListFail);
-        // console.log($ctrl.assignments);
+        assignmentList.then(function(res){
+          if(res.data){
+            $ctrl.assignments = [];
+            assignment_mapping($ctrl.assignments,res.data);
+
+            getStudentsNames();
+          }
+        },function(res){
+          console.log('Failed:',res.data);
+        });
+        
       }
 
       $ctrl.$onChanges = function(){

@@ -7,11 +7,12 @@ angular.module('service')
 
 httpInterceptorRegistry.$inject = ['$httpProvider'];
 function httpInterceptorRegistry($httpProvider){
+
   $httpProvider.interceptors.push('accessTokenHttpInterceptor');
 }
 
-accessTokenHttpInterceptor.$inject = ['$cookies','$rootScope'];
-function accessTokenHttpInterceptor($cookies,$rootScope){
+accessTokenHttpInterceptor.$inject = ['$cookies','$rootScope','$q','$location'];
+function accessTokenHttpInterceptor($cookies,$rootScope,$q,$location){
 
   var loadingContent = 0;
   return {
@@ -22,12 +23,18 @@ function accessTokenHttpInterceptor($cookies,$rootScope){
             //set authorization header
             $config.headers["x-access-token"] =token;
 
-            if(++loadingContent ===1){
+            if(loadingContent ===0){
                 $rootScope.$emit('$http:start');
             }else{
                 $rootScope.$emit('$http:progress');
             }
+            loadingContent++;
             return $config;
+        },
+        requestError: function(rejection){
+            loadingContent = 0;
+            $rootScope.$emit('$http:finish','finish');
+            return $q.reject(rejection);
         },
         response: function(response) {
             //if you get a token back in your response you can use 
@@ -39,14 +46,23 @@ function accessTokenHttpInterceptor($cookies,$rootScope){
                     //set token
                     $cookies.put('token', token);
               }
-
-              if(response.status !== 200){
-                
-              }
-              if(--loadingContent === 0){
+              if(loadingContent === 1){
                 $rootScope.$emit('$http:finish','finish');
               }
+              loadingContent--;
             return response;
+        },
+        responseError: function(rejection){
+          loadingContent = 0;
+          $rootScope.$emit('$http:finish','finish');
+          var status = rejection.status;
+          switch(status){
+            case 401:
+            case 403:
+                $location.path('/');
+            break;
+          }
+          return $q.reject(rejection);
         }
     };
 }

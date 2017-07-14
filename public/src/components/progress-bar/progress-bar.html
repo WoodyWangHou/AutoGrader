@@ -4,11 +4,12 @@
   </div>
   <div class="widget-content">
     <ul class="unstyled">
-      <li ng-repeat="item in $ctrl.progressTable track by $index" ng-if="$ctrl.progressTable[$index].percent"> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> {{$ctrl.progressTable[$index].rowTitle}} <span class="pull-right strong">{{$ctrl.progressTable[$index].value}}</span>
+      <li ng-repeat="item in $ctrl.progressTable track by $index"> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> {{item.rowTitle}} <span class="pull-right strong">{{item.value}}/{{item.totalValue}}</span>
         <div class="progress">
-          <div style="width: {{$ctrl.progressTable[$index].percent}}%;" class="bar"></div>
+          <div style="width: {{item.percent}}%;" class="bar"></div>
         </div>
       </li>
+      <li><div ng-if="$ctrl.info">{{$ctrl.info}}</div></li>
     </ul>
   </div>
 </div>

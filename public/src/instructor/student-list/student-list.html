@@ -2,9 +2,9 @@
   <!-- data table -->
   <div class="span1"></div>
   <div class="span10">
+  <ui-view>
   <div class="widget-box">
     <div class="widget-content">
-  <ui-view>
     <div class="dataTables_length">
             <div class="select2-search select2-input">
               <label>
@@ -28,6 +28,7 @@
               title="stuListCtrl.title"
               column="stuListCtrl.column"
               detail="item.detail"
+              to-state="stuListCtrl.toState"
           ></list-table>
       </div>
 

@@ -1,12 +1,30 @@
+<div class="row-fluid">
+  <!-- data table -->
+  <div class="span1">
+  </div>
+  <div class="span10">
+
 <assignment-form
+  form-id="formCtrl.assignmentId"
   additional="formCtrl.additional"
   detail="formCtrl.detail"
   form="formCtrl.form"
-  add-row="formCtrl.addRow()"
-  delete-row="formCtrl.deleteRow()"
   uploader="formCtrl.uploader"
-  instructor="formCtrl.instructor"
-  uploade-option-storage="formCtrl.uploadeOptionStorage"
-  uploade-option-main-label="formCtrl.uploadeOptionMainLabel"
-  uploade-option-aux-label="formCtrl.uploadeOptionAuxLabel"
+  status="formCtrl.status"
+  storage-file-url="formCtrl.storageFileUrl"
+  main-label-file-url="formCtrl.mainLabelFileUrl"
+  option-aux-label-file-url="formCtrl.optionAuxLabelFileUrl"
+  prescription-file-url="formCtrl.prescriptionFileUrl"
+  scores = "formCtrl.scores"
+  comments = "formCtrl.comments"
 ></assignment-form>
+
+  <div class="alert alert-info" ng-if="$ctrl.error">
+      <button class="close" data-hide="alert">×</button>
+    <strong>Note:</strong> {{$ctrl.error}} </div>
+
+</div>
+<!-- end of span 12 -->
+<div class="span1">
+</div>
+</div>

@@ -31,10 +31,11 @@
           controllerAs: 'assignmentCtrl'
         })
         .state(STUDENT_STATE.HOME_ASSIGNMENT_FORM, {
-          url: '/:assignmentId',
+          url: '/:assignmentName/:assignmentId',
           templateUrl: 'src/student/assignment/assignment-form/assignment-form.html',
           controller: 'assignmentFormController',
-          controllerAs: 'formCtrl'
+          controllerAs: 'formCtrl',
+          css:['css/viewer.css','css/pdfview.css']
         });
       }
 

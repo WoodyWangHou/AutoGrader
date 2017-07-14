@@ -8,7 +8,7 @@
 (function(){
 "use strict";
 
-angular.module('PDFViewer', ['ng-drag-scroll'])
+angular.module('PDFViewer', [])
 .service("PDFViewerService", [ '$rootScope', function($rootScope) {
 
 	var svc = { };
@@ -64,6 +64,7 @@ function pdfController($parse,$rootScope,$element){
 	$ctrl.pageLoading = true;
 	$ctrl.small = false;
 	$ctrl.medium = false;
+	$ctrl.error = "";
 
 	$ctrl.pageLoaded = function(page , total){
 		$ctrl.currentPage = page;
@@ -86,10 +87,14 @@ function pdfController($parse,$rootScope,$element){
 				}
 			});
 		}, function(message, exception) {
+			$rootScope.$apply(function(){
+				$ctrl.error = message;
+			});
 			console.log("PDF load error: " + message);
 			if ($ctrl.loadProgress) {
 				$ctrl.loadProgress({state: "error", loaded: 0, total: 0});
 			}
+
 		});
 			};
 

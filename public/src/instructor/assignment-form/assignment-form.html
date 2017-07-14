@@ -4,19 +4,18 @@
   </div>
   <div class="span10">
 
-
 <assignment-form
   form-id="instructorFormCtrl.assignmentId"
   additional="instructorFormCtrl.additional"
   form="instructorFormCtrl.form"
-  add-row="instructorFormCtrl.addRow()"
-  delete-row="instructorFormCtrl.deleteRow()"
-  uploader="instructorFormCtrl.uploader"
   submit-url="instructorFormCtrl.submitUrl"
   scores="instructorFormCtrl.scores"
   comments="instructorFormCtrl.comments"
-  view-only-mode="instructorFormCtrl.mode.viewOnlyMode"
-  evaluate-mode="instructorFormCtrl.mode.evaluateMode"
+  status="instructorFormCtrl.status"
+  storage-file-url="instructorFormCtrl.storageFileUrl"
+  main-label-file-url="instructorFormCtrl.mainLabelFileUrl"
+  option-aux-label-file-url="instructorFormCtrl.optionAuxLabelFileUrl"
+  prescription-file-url="instructorFormCtrl.prescriptionFileUrl"
 ></assignment-form>
 
   <div class="alert alert-info" ng-if="$ctrl.error">

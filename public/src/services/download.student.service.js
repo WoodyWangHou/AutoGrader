@@ -4,8 +4,18 @@
 angular.module('service')
 .service('userInterfaceInitService', userInterfaceInitService);
 
-userInterfaceInitService.$inject= ['STUDENT_STATE','STUDENT_ICON'];
-function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
+userInterfaceInitService.$inject= [
+'STUDENT_STATE',
+'STUDENT_ICON',
+'REMOTE_SERVER',
+'REQUEST_URL',
+'$http'];
+function userInterfaceInitService(
+  STUDENT_STATE,
+  STUDENT_ICON,
+  REMOTE_SERVER,
+  REQUEST_URL,
+  $http) {
   // This is student interface ajax service
   var service = this;
   service.studentInfo = {};
@@ -101,6 +111,7 @@ function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
     return service.actionBox;
   }
 
+  // below are helpers to connect to backend
 
   service.getProgress = function(){
       var progress = setProgressTable();
@@ -177,136 +188,20 @@ function userInterfaceInitService(STUDENT_STATE,STUDENT_ICON) {
         return result;
   }
 
-
-  service.getStudentAssignmentById = function(studentId){
-    // to implement $http service
-    switch(studentId){
-      case "A0078679B":
-        service.assignment = [{
-          // assignment
-          assignmentName:"Lecture 1 - Assignment 1",
-          assignmentGroupId:"1",
-          deadline:"10/03/2017",
-          description:"Woody Wang's assignment 1",
-          prescriptionUrl:"img/Prescription.jpg",
-          // submission
-          submissionDate:"30/04/2017",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"1",
-          status:"submitted"
-          // below is the mock data, need to ajax from server
-          },{
-          assignmentName:"Lecture 2 - Assignment 2",
-          assignmentGroupId:"2",
-          deadline:"13/02/2017",
-          description:"Woody Wang's assignment 2",
-          prescriptionUrl:"img/Prescription.jpg",
-          submissionDate:"30/04/2017",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"2",
-          status:"submitted"
-          // below is the mock data, need to ajax from server
-
-        }];
-      break;
-      case "A0078679A":
-      service.assignment = [{
-          assignmentName:"Lecture 1 - Assignment 1",
-          assignmentGroupId:"1",
-          deadline:"10/03/2017",
-          submissionDate:"",
-          description:"Wang Hou's assignment 1",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"3",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-          },{
-          assignmentName:"Lecture 2 - Assignment 2",
-          assignmentGroupId:"2",
-          deadline:"13/02/2017",
-          submissionDate:"30/04/2017",
-          description:"Wang Hou's assignment 2",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"4",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-        }];
-      break;
-      default:
-        service.assignment = [{
-          assignmentName:"Lecture 1 - Assignment 1",
-          assignmentGroupId:"1",
-          deadline:"10/03/2017",
-          submissionDate:"30/04/2017",
-          description:"Default test assignent 1",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"1",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-          },{
-          assignmentName:"Lecture 2 - Assignment 2",
-          assignmentGroupId:"2",
-          deadline:"13/02/2017",
-          submissionDate:"30/04/2017",
-          description:"Default test assignent 2",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"2",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-      },
-      {
-          assignmentName:"Lecture 1 - Assignment 1",
-          assignmentGroupId:"1",
-          deadline:"10/03/2017",
-          submissionDate:"",
-          description:"Wang Hou's assignment 1",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"3",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-          },{
-          assignmentName:"Lecture 2 - Assignment 2",
-          assignmentGroupId:"2",
-          deadline:"13/02/2017",
-          submissionDate:"30/04/2017",
-          description:"Wang Hou's assignment 2",
-          inProgress:false,
-          scores:-1,
-          assignmentId:"4",
-          status:"submitted",
-          // below is the mock data, need to ajax from server
-          prescriptionUrl:"img/Prescription.jpg"
-        }];
-  }
-    return service.assignment;
+  service.getStudentAssignment = function(){
+    return $http.get(REMOTE_SERVER + REQUEST_URL.STUDENT + REQUEST_URL.STUDENT_ASSIGNMENT);
   }
 
   service.getAssignmentById = function(assignmentId){
-    service.getStudentAssignmentById();
-        for(var i = 0;i<service.assignment.length;i++){
-
-            if(service.assignment[i].assignmentId == assignmentId){
-              return service.assignment[i];
-            
-          }
+      var config = {
+        params:{
+          assignment_id:assignmentId
         }
-    }
-
-// for assignment.form additional materials, ajax to pull data
-  service.getAssignmentAdditionalMaterialById = function(assignmentId){
-    return "Test: Additional Materials";
+      };
+      var url = REMOTE_SERVER+REQUEST_URL.STUDENT+REQUEST_URL.STUDENT_ASSIGNMENT_BYID;
+      var assignment = $http.get(url,config);
+      return assignment;
   }
+
 }
 })();

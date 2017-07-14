@@ -2,20 +2,20 @@
     angular.module('instructor')
     .controller('studentListController',studentListController);
 
-    studentListController.$inject = ['instructorInterfaceInitService','userInterfaceInitService'];
-    function studentListController(instructorInterfaceInitService,userInterfaceInitService) {
+    studentListController.$inject = ['instructorInterfaceInitService','userInterfaceInitService','$state'];
+    function studentListController(instructorService,userInterfaceInitService,$state) {
       var $ctrl = this;
       var ui = new UIInit();
 
       $ctrl.isInstructor = false;
       // userInterfaceInitService.getStudentMenu($state.current.name);
-      $ctrl.username = instructorInterfaceInitService.getName();
+      $ctrl.username = instructorService.getName();
       $ctrl.title = ui.getListDescription();
 
       $ctrl.column = ui.getColumn();
+      $ctrl.toState = "assignment";
       
       var getDetails = function(students){
-
         for(var i = 0;i<students.length;i++){
           students[i].detail = [];
           for(var j = 0;j<students[i].assignments.length;j++){
@@ -28,6 +28,11 @@
               $name:students[i].first_name+' '+students[i].last_name,
               $id:assignment._id
             };
+
+            if(assignment.submission.submission_date){
+              let date = new Date(assignment.submission.submission_date);
+              detail['submissionDate'] = (date.getDate() + '-' + instructorService.numberToMonth(date.getMonth()) + '-' + date.getFullYear());
+            }
             students[i].detail.push(detail);
           }
         }
@@ -37,14 +42,20 @@
         if(res.data){
           $ctrl.studentList = res.data;
         }
-        console.log('response:',res.data);
+        console.log($ctrl.studentList);
         getDetails($ctrl.studentList);
       }
     
       var getStudentListFailed = function(res){
-        console.log("Failed: ",res);
+          switch(res.status){
+            case 400:
+            case 403:
+            case 401:
+            $state.go('login.form');
+          }
+          console.log(res);
       }
-      var studentList = instructorInterfaceInitService.getStudents();
+      var studentList = instructorService.getStudents();
 
 
       $ctrl.$onInit = function(){

@@ -21,20 +21,21 @@
     </div>
     <div ng-repeat="item in instructorAssignListCtrl.assignments | filter:searchKey" class="collapsible">
       <div class="widget-title">
-        <a href="javascript:;" data-target="#{{item.assignmentId}}" data-toggle="collapse" class="collapse">
+        <a href="javascript:;" data-target="#{{item.templateId}}" data-toggle="collapse" class="collapse">
           <span class="icon"><i class="icon-arrow-right"></i></span>
-        <h5>{{item.name}} - Deadline by: {{item.deadline}} - ID: {{item.description}}</h5>
-        </a>
+        <h5>{{item.name}} - {{item.description}} - Deadline by: {{item.deadline}}</h5>
+        </a> 
+        <button class="btn btn-danger pull-right" ng-click="instructorAssignListCtrl.deleteAssignment(item.templateId)"> - </button>               
       </div>
-      <div class="collapse" id="{{item.assignmentId}}">
+      <div class="collapse" id="{{item.templateId}}">
         <list-table
               name="item.name"
               title="instructorAssignListCtrl.title"
               column="instructorAssignListCtrl.column"
               detail="item.detail"
+              to-state="instructorAssignListCtrl.toState"
           ></list-table>
       </div>
-
     </div>
   </ui-view>
   </div>

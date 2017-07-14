@@ -6,6 +6,7 @@ angular.module('autograder')
   templateUrl:'src/components/progress-bar/progress-bar.html',
   bindings:{
       progressTable:'<',
+      info:'<',
       title:'<'
   }
 });
