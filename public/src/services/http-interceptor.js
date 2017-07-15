@@ -46,6 +46,12 @@ function accessTokenHttpInterceptor($cookies,$rootScope,$q,$location){
                     //set token
                     $cookies.put('token', token);
               }
+
+              if(response.data['username']){
+                var username = response.data['username'];
+                $cookies.put('username',username);
+              }
+
               if(loadingContent === 1){
                 $rootScope.$emit('$http:finish','finish');
               }

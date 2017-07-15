@@ -9,13 +9,15 @@ userInterfaceInitService.$inject= [
 'STUDENT_ICON',
 'REMOTE_SERVER',
 'REQUEST_URL',
-'$http'];
+'$http',
+'$cookies'];
 function userInterfaceInitService(
   STUDENT_STATE,
   STUDENT_ICON,
   REMOTE_SERVER,
   REQUEST_URL,
-  $http) {
+  $http,
+  $cookies) {
   // This is student interface ajax service
   var service = this;
   service.studentInfo = {};
@@ -37,12 +39,6 @@ function userInterfaceInitService(
     }
   ];
 
-  service.getName = function(){
-    // var studentInfo = {};
-    // studentInfo.username = "Woody Wang";
-    // studentInfo.description = "Assignments";
-    return "Woody Wang";
-  }
 
   service.getTitle = function(){
     return "Assignments";
@@ -201,6 +197,11 @@ function userInterfaceInitService(
       var url = REMOTE_SERVER+REQUEST_URL.STUDENT+REQUEST_URL.STUDENT_ASSIGNMENT_BYID;
       var assignment = $http.get(url,config);
       return assignment;
+  }
+
+  service.getName = function(){
+    var username = $cookies.get('username');
+    return username;
   }
 
 }

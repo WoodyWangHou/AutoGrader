@@ -10,7 +10,8 @@
       'STUDENT_STATE',
       'INSTRUCTOR_STATE',
       'ajaxUploadService',
-      '$cookies'
+      '$cookies',
+      '$stateParams'
     ];
     function dashboardController(
       $state,
@@ -19,7 +20,9 @@
       $rootScope,
       STUDENT_STATE,INSTRUCTOR_STATE,
       ajaxUploadService,
-      $cookies){
+      $cookies,
+      $stateParams
+      ){
 
       var $ctrl = this;
 
@@ -31,6 +34,10 @@
         },function(error){
           $state.go('login.form');
         });
+      }
+
+      $ctrl.$onInit = function(){
+        $ctrl.userInfo = $cookies.get('username');
       }
 
       for(var key in STUDENT_STATE){
