@@ -31,7 +31,7 @@ var students = require('./routes/students');
 var instructors = require('./routes/instructors');
 
 var app = express();
-
+app.use(favicon(path.join(__dirname, 'public', 'logo.ico')));
 app.use(logger('dev'));
 app.use(expressWinston.logger({
 	transports:[

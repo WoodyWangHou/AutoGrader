@@ -8,7 +8,9 @@
         </a>
       </div>
       <div class="" id="material">
-        <div class="widget-content"> {{$ctrl.additional}} </div>
+        <div class="widget-content"> 
+            <div ng-bind-html="$ctrl.additional"></div>
+        </div>
       </div>
     </div>
 
@@ -146,8 +148,11 @@
           <div class="control-group">
             <ng-form>
               <div class="controls">
-                <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea>
-                <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea>
+                <div></div>
+                <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.calculation" placeholder="enter calculation here" contentEditable></div>
+<!--                 <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea> -->
+                <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.calculation"></div>
+                <!-- <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea> -->
               </div>
             </ng-form>
           </div>
@@ -180,8 +185,10 @@
           <div class="control-group">
             <ng-form>
               <div class="controls">
-                <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.method"></textarea>
-                <textarea ng-if="$ctrl.viewOnlyMode" class="textarea_editor span12" disabled rows="6" ng-model="$ctrl.form.method"></textarea>
+                <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.method" placeholder="enter method here" contentEditable></div>
+                 <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.method"></div>
+<!--                 <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.method"></textarea>
+                <textarea ng-if="$ctrl.viewOnlyMode" class="textarea_editor span12" disabled rows="6" ng-model="$ctrl.form.method"> --></textarea>
               </div>
             </ng-form>
           </div>
@@ -215,8 +222,10 @@
             <div class="control-group">
               <ng-form>
                 <div class="controls">
-                  <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
-                  <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                  <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.packing" placeholder="enter packing here" contentEditable></div>
+                 <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.packing"></div>
+<!--                   <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                  <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea> -->
                 </div>
               </ng-form>
             </div>
@@ -447,7 +456,9 @@
         </a>
       </div>
       <div class="" id="material">
-        <div class="widget-content"> {{$ctrl.additional}} </div>
+        <div class="widget-content"> 
+          <div ng-bind-html="$ctrl.additional"></div>
+          </div>
       </div>
     </div>
 
@@ -581,7 +592,7 @@
           <div class="control-group">
             <ng-form>
               <div class="controls">
-                <textarea disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea>
+                <div ng-bind-html="$ctrl.form.calculation"></div>
               </div>
             </ng-form>
           </div>
@@ -617,7 +628,7 @@
           <div class="control-group">
             <ng-form>
               <div class="controls">
-                <textarea class="textarea_editor span12" disabled rows="6" ng-model="$ctrl.form.method"></textarea>
+                <div ng-bind-html="$ctrl.form.method"></div>
               </div>
             </ng-form>
           </div>
@@ -654,7 +665,7 @@
             <div class="control-group">
               <ng-form>
                 <div class="controls">
-                  <textarea disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
+                  <div ng-bind-html="$ctrl.form.packing"></div>
                 </div>
               </ng-form>
             </div>

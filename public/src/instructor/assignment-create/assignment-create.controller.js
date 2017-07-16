@@ -9,15 +9,13 @@
   '$stateParams',
   'instructorInterfaceInitService',
   'ajaxUploadService',
-  '$element',
-  '$timeout'];
+  '$element'];
   function assignmentCreateController(
     $state,
     $stateParams,
     instructorInterfaceInitService,
     ajaxUploadService,
-    $element,
-    $timeout){
+    $element){
 
     var validFileTypes = ['application/pdf','image/*'];
     var $ctrl = this;
@@ -174,7 +172,8 @@
          return $ctrl.uploader.uploadAll();
       }
         $ctrl.isUploading = false;
-    }
+  
+  }
 
     var isValidType = function(acceptTypes,fileType){
       var typeCatExt = [];

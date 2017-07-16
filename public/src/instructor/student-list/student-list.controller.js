@@ -42,7 +42,6 @@
         if(res.data){
           $ctrl.studentList = res.data;
         }
-        console.log($ctrl.studentList);
         getDetails($ctrl.studentList);
       }
     
@@ -53,7 +52,6 @@
             case 401:
             $state.go('login.form');
           }
-          console.log(res);
       }
       var studentList = instructorService.getStudents();
 

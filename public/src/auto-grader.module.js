@@ -1,7 +1,7 @@
 (function(){
 'use strict'
 
-  angular.module('autograder',['login','student','instructor','service','loadingBar'])
+  angular.module('autograder',['login','student','instructor','service','loadingBar','ngSanitize','InlineTextEditor'])
   .config(config);
 
   config.$inject = ['$urlRouterProvider','$locationProvider'];

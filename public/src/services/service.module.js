@@ -4,6 +4,7 @@
 angular.module('service',['angularFileUpload','ngCookies'])
 .constant('fileUploadUrl','/instructors/createassignment')
 .constant('REMOTE_SERVER','http://ec2-52-77-231-105.ap-southeast-1.compute.amazonaws.com')
+// http://ec2-52-77-231-105.ap-southeast-1.compute.amazonaws.com
 .constant('REQUEST_URL',{
 	LOGIN:'/users/login',
 	LOGOUT:'/users/logout',

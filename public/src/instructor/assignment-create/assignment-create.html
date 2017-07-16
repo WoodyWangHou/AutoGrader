@@ -1,11 +1,11 @@
 
 <div class="row-fluid">
   <!-- data table -->
-  <div class="span2">
+  <div class="span1">
   </div>
 
   <form name="assignCrtCtrl.form" novalidate>
-  <div class="span8">
+  <div class="span10">
       <div class="widget-box">
           <div class="widget-title">
             <a href="javascript:;" data-target="#assignment_detail" data-toggle="collapse" class="collapse"> 
@@ -105,13 +105,13 @@
           <ng-form name="material_form" novalidate>
           <div class="control-group">
                 <div class="controls">
-                  <textarea 
-                    class="textarea_editor span12" 
-                    rows="6" 
-                    ng-model="assignCrtCtrl.additional_material" 
+                  <div 
+                    inline-text-editor
+                    class="inline-text-editor"
+                    ng-model="assignCrtCtrl.additional_material"
                     placeholder="Enter Text Here"
-                    name="additional_material"
-                    ></textarea>
+                    contentEditable>
+                    </div>
                 </div>
                 </div>
               </ng-form>
@@ -197,6 +197,6 @@
   </form>
   <!-- end of data table /end of span8-->
 <!-- end of span 12 -->
-<div class="span2">
+<div class="span1">
 </div>
 </div>
