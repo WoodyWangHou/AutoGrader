@@ -230,7 +230,7 @@ function formController($http, pdf,$state,STUDENT_STATE,INSTRUCTOR_STATE,uploadS
 
     if(isAllScoresAvailable()){
       console.log('not all available');
-        if($ctrl.totalScores > 0 && $ctrl.totalScores < 100){
+        if($ctrl.totalScores >= 0 && $ctrl.totalScores <= 100){
           if(!$ctrl.assignmentForm.$valid){
             $ctrl.error.push("Invalid input, please check the above");
             return;

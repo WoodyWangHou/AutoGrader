@@ -128,8 +128,8 @@
               <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores"/>
-          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.formulationComment"/>
         </div>
+          <div ng-bind-html="$ctrl.formulationComment"></div>
     </div>
   </div>
   </ng-form>
@@ -149,9 +149,7 @@
               <div class="controls">
                 <div></div>
                 <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.calculation" placeholder="enter calculation here" contentEditable></div>
-<!--                 <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea> -->
                 <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.calculation"></div>
-                <!-- <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.calculation"></textarea> -->
               </div>
             </ng-form>
           </div>
@@ -165,8 +163,8 @@
               <label class="control-label">Scores &amp; Comment:</label>
               <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores"/>
-          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.calculationComment"/>
         </div>
+              <div ng-bind-html="$ctrl.calculationComment"></div>
       </div>
     </div>
   </ng-form>
@@ -186,8 +184,6 @@
               <div class="controls">
                 <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.method" placeholder="enter method here" contentEditable></div>
                  <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.method"></div>
-<!--                 <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.method"></textarea>
-                <textarea ng-if="$ctrl.viewOnlyMode" class="textarea_editor span12" disabled rows="6" ng-model="$ctrl.form.method"> --></textarea>
               </div>
             </ng-form>
           </div>
@@ -201,8 +197,8 @@
               <label class="control-label">Scores &amp; Comment:</label>
               <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores"/>
-          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.methodComment"/>
         </div>
+        <div ng-bind-html="$ctrl.methodComment"></div>
       </div>
     </div>
   </ng-form>
@@ -223,8 +219,6 @@
                 <div class="controls">
                   <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="$ctrl.form.packing" placeholder="enter packing here" contentEditable></div>
                  <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="$ctrl.form.packing"></div>
-<!--                   <textarea ng-if="!$ctrl.viewOnlyMode" class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea>
-                  <textarea ng-if="$ctrl.viewOnlyMode" disabled class="textarea_editor span12" rows="6" ng-model="$ctrl.form.packing"></textarea> -->
                 </div>
               </ng-form>
             </div>
@@ -238,8 +232,8 @@
               <label class="control-label">Scores &amp; Comment:</label>
               <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores"/>
-          <input disabled type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.packingComment"/>
         </div>
+          <div ng-bind-html="$ctrl.packingComment"></div>
       </div>
     </div>
   </ng-form>
@@ -294,8 +288,8 @@
         <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores"/>
-          <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.storageComment"/>
         </div>
+          <div ng-bind-html="$ctrl.storageComment"></div>
       </div>
     </div>
 
@@ -350,8 +344,8 @@
         <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores"/>
-          <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.mainLabelComment"/>
         </div>
+          <div ng-bind-html="$ctrl.mainLabelComment"></div>
       </div>
     </div>
 
@@ -405,8 +399,8 @@
               <label class="control-label">Scores &amp; Comment:</label>
               <div class="controls">
                 <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores"/>
-                <input type="text" disabled class="span6" name="comment" placeholder="comment" ng-model="$ctrl.auxComment"/>
-        </div>
+              </div>
+              <div ng-bind-html="$ctrl.auxComment"></div>
       </div>
     </div>
 
@@ -560,20 +554,13 @@
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || formulation.scores.$touched) && formulation.scores.$error.score}]">
               <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input 
-            type="text" 
-            class="span2" 
-            name="scores" 
-            placeholder="Scores:" 
-            ng-model="$ctrl.formulationScores" 
-            score 
-            />
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.formulationComment"/>
+          <div class="controls">
+              <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores" score />
             <div ng-show="$ctrl.assignmentForm.$submitted || formulation.scores.$touched">
               <div ng-show="formulation.scores.$error.required || formulation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
-        </div>
+          </div>
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.formulationComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
 
@@ -605,11 +592,11 @@
               <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores" score />
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.calculationComment"/>
             <div ng-show="$ctrl.assignmentForm.$submitted || calculation.scores.$touched">
               <div ng-show="calculation.scores.$error.required || calculation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.calculationComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
   </ng-form>
@@ -641,11 +628,11 @@
               <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores" score/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.methodComment"/>
             <div ng-show="$ctrl.assignmentForm.$submitted || method.scores.$touched">
               <div ng-show="method.scores.$error.required || method.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.methodComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
   </ng-form>
@@ -678,11 +665,11 @@
               <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores" score/>
-          <input type="text" class="span8" name="comment" placeholder="comment" ng-model="$ctrl.packingComment"/>
             <div ng-show="$ctrl.assignmentForm.$submitted || packing.scores.$touched">
               <div ng-show="packing.scores.$error.required || packing.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.packingComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
 
@@ -738,12 +725,11 @@
         <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores" score/>
-          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.storageComment"/>
-
             <div ng-show="$ctrl.assignmentForm.$submitted || storageLabel.scores.$touched">
               <div ng-show="storageLabel.scores.$error.required || storageLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.storageComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
 
@@ -797,12 +783,11 @@
         <label class="control-label">Scores &amp; Comment:</label>
         <div class="controls">
           <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores" score/>
-          <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.mainLabelComment"/>
-
             <div ng-show="$ctrl.assignmentForm.$submitted || mainLabel.scores.$touched">
               <div ng-show="mainLabel.scores.$error.required || mainLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+        <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.mainLabelComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
 
@@ -856,12 +841,12 @@
               
               <div class="controls">
                 <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores" score/>
-                <input type="text" class="span6" name="comment" placeholder="comment" ng-model="$ctrl.auxComment"/>
 
                 <div ng-show="$ctrl.assignmentForm.$submitted || auxLabel.scores.$touched">
                   <div ng-show="auxLabel.scores.$error.required || auxLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
                 </div>
               </div>
+              <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.auxComment" placeholder="Comment:" contentEditable></div> 
       </div>
     </div>
 
