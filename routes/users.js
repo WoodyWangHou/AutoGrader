@@ -71,6 +71,7 @@ router.post('/login',function(req,res,next){
             //return token
           res.status(200).json({
           is_instructor:user.is_instructor,
+          username:user.first_name + " " + user.last_name,
           token: token
         });
       });

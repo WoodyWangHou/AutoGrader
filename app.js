@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var winston = require('winston');
+var expressWinston = require('express-winston');
+var MongoDB_Winston = require('winston-mongodb').MongoDB;
 
 var user = require('./models/user');
 
@@ -14,9 +17,6 @@ var verifyInstructor = require('./utils/verify-instructor');
 var verifyStudent = require('./utils/verify-student');
 
 var config = require('./config');
-
-// mongoose.Promise = global.Promise;
-// mongoose.Promise = require('bluebird');
 
 mongoose.connect(config.mongoUrl);
 var db = mongoose.connection;
@@ -32,23 +32,28 @@ var instructors = require('./routes/instructors');
 
 var app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(expressWinston.logger({
+	transports:[
+		new winston.transports.MongoDB({
+		db:config.mongoUrl,
+		level:'info',
+		collection:'all-log',
+		json:true,
+		timestamp:true
+	})
+	]
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-// add file upload middleware
-// app.use(fileUpload());
 
 app.use(passport.initialize());
 passport.use(user.createStrategy());
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
-// app.use('/', index);
 app.use('/users', users);
-// app.use('/student',index);
 app.use('/students',students);
 app.use('/instructors',instructors);
 
@@ -62,6 +67,28 @@ app.use(verifyStudent);
 app.use(express.static(path.join(__dirname, 'public/src/student/home-main')));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// WINSTON ERROR LOGGING
+app.use(expressWinston.errorLogger({
+	transports:[
+		new (winston.transports.MongoDB)({
+		db:config.mongoUrl,
+		level:'warn',
+		collection:'error-log',
+		json:true,
+		timestamp:true
+	}),
+		new (winston.transports.File)({
+			filename:'./error.log',
+			level:'warn',
+			json:true,
+			timestamp:true
+		})
+	],
+	level: function() {
+    return 'warn';
+  }
+}));
 
 // catch 404 and forward to error handler
 app.use(function(err,req, res, next) {
