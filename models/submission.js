@@ -7,9 +7,9 @@ var evaluation = require('./evaluation');
 var submission_schema = new schema({
 	formulation:[{
 		ingredient_name:String,
-		official_quantity:Number,
-		used_quantity:Number,
-		actual_quantity_weighted:Number,
+		official_quantity:String,
+		used_quantity:String,
+		actual_quantity_weighted:String,
 		signature:String
 	}],
 	calculation: String,

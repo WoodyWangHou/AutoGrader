@@ -38,7 +38,7 @@ app.use(expressWinston.logger({
 		new winston.transports.MongoDB({
 		db:config.mongoUrl,
 		level:'info',
-		collection:'all-log',
+		collection:'allLog',
 		json:true,
 		timestamp:true
 	})
@@ -74,7 +74,7 @@ app.use(expressWinston.errorLogger({
 		new (winston.transports.MongoDB)({
 		db:config.mongoUrl,
 		level:'warn',
-		collection:'error-log',
+		collection:'errorLog',
 		json:true,
 		timestamp:true
 	}),

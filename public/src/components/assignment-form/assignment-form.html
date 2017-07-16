@@ -65,9 +65,8 @@
                   <div class="control-group">
                   <div class="controls span12">
 
-                  <input ng-if="$ctrl.viewOnlyMode" disabled type="text" class="span11" ng-model="item.ingredient_name" />
-                  <input ng-if="!$ctrl.viewOnlyMode" type="text" class="span11" placeholder="Ingredient" ng-model="item.ingredient_name" />
-                  
+                  <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="item.ingredient_name" placeholder="Ingredient" contentEditable style="font-size:10px;"></div>
+                  <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="item.ingredient_name" style="font-size:10px;"></div>      
                 </div>
               </div>
             </td>
@@ -511,9 +510,9 @@
               <tr ng-repeat="item in $ctrl.form.formulation track by $index" class="odd gradeX">
                 <td>
                   <div class="control-group">
-                  <div class="controls span12">
+                  <div class="controls span12">  
 
-                  <input disabled type="text" class="span11" ng-model="item.ingredient_name" />
+                  <div ng-bind-html="item.ingredient_name" style="font-size:10px;"></div>      
       
                 </div>
               </div>
