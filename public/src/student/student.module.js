@@ -6,8 +6,6 @@
     HOME:"student",
     HOME_ASSIGNMENT:"stuAssignments",
     HOME_ASSIGNMENT_FORM:"stuAssignments.form"
-    // HOME_MATERIALS:"materials",
-    // HOME_FEEDBACK: "feedback"
   })
   .constant('STUDENT_ICON',{
       HOME:"home",
