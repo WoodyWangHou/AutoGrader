@@ -155,6 +155,9 @@
            <div class="alert alert-error" ng-show="!assignCrtCtrl.validFile">
           <button class="close" data-dismiss="alert">×</button>
       <strong>Error!</strong> Please provide a right form prescript file </div>
+            <div class="alert alert-error" ng-show="!assignCrtCtrl.isFileSelected">
+          <button class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Please provide a right form prescript file </div>
       </div>
     <!-- end of uploader -->
 
@@ -176,7 +179,7 @@
 <!-- end of label -->
 <!-- assignment save -->
 <div class="form-actions">
-  <button ng-disabled="assignCrtCtrl.form.$submitted || !assignCrtCtrl.form.$valid" type="submit" class="btn btn-success" ng-click="assignCrtCtrl.submit()">Submit</button>
+  <button ng-disabled="assignCrtCtrl.isUploading" type="submit" class="btn btn-success" ng-click="assignCrtCtrl.submit()">Submit</button>
 </div>
 <!-- end of save -->
     <!-- Error -->

@@ -100,6 +100,7 @@
     $ctrl.isSelected = false;
     $ctrl.isFileSelected = false;
     $ctrl.submitted = false;
+    $ctrl.isUploading = false;
     $ctrl.success = [];
     $ctrl.error = [];
     // set date picker
@@ -123,12 +124,14 @@
 
     $ctrl.uploader.onSuccessItem = function(item, response, status, headers){
       $ctrl.success.push(response);
-      $ctrl.form.$submitted = false;
+      $ctrl.isUploading = false;
     }
 
     $ctrl.uploader.onErrorItem = function(item, response, status, headers) {
       $ctrl.error.push(status.toString);
-      $ctrl.form.$submitted = false;
+      $ctrl.error.push("Please check your connection and file");
+      $ctrl.isUploading = false;
+      $ctrl.uploader.cancellAll();
     }
 
     $ctrl.uploader.onBeforeUploadItem = function(item){
@@ -167,11 +170,10 @@
 
     $ctrl.submit = function(){
       if($ctrl.validFile && $ctrl.isFileSelected && $ctrl.isSelected && $ctrl.form.$valid){
-         $ctrl.form.$submitted = true;
-         $ctrl.uploader.uploadAll();
-      }else{
-        $ctrl.form.$submitted = false;
+         $ctrl.isUploading = true;
+         return $ctrl.uploader.uploadAll();
       }
+        $ctrl.isUploading = false;
     }
 
     var isValidType = function(acceptTypes,fileType){
