@@ -125,11 +125,14 @@
   <ng-form class="form-horizontal" novalidate>
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-              <label class="control-label">Scores &amp; Comment:</label>
-        <div class="controls">
-          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores"/>
-        </div>
+              <label class="control-label">Scores:</label>
+          <div class="controls">
+            <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores"/>
+          </div>
+          <label class="control-label">Comment:</label>
+          <div class="controls">
           <div ng-bind-html="$ctrl.formulationComment"></div>
+          </div>
     </div>
   </div>
   </ng-form>
@@ -160,11 +163,14 @@
  <ng-form class="form-horizontal" novalidate>
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
               <div class="controls">
-          <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores"/>
-        </div>
+                <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores"/>
+              </div>
+              <label class="control-label">Comment:</label>
+              <div class="controls">
               <div ng-bind-html="$ctrl.calculationComment"></div>
+              </div>
       </div>
     </div>
   </ng-form>
@@ -194,11 +200,14 @@
   <ng-form class="form-horizontal" novalidate>
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
               <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores"/>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
         <div ng-bind-html="$ctrl.methodComment"></div>
+        </div>
       </div>
     </div>
   </ng-form>
@@ -229,11 +238,14 @@
   <ng-form class="form-horizontal" novalidate>
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
               <div class="controls">
           <input disabled type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores"/>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div ng-bind-html="$ctrl.packingComment"></div>
+          </div>
       </div>
     </div>
   </ng-form>
@@ -285,11 +297,14 @@
   <ng-form class="form-horizontal" name="storageLabel" novalidate>
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-        <label class="control-label">Scores &amp; Comment:</label>
+        <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores"/>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div ng-bind-html="$ctrl.storageComment"></div>
+          </div>
       </div>
     </div>
 
@@ -341,11 +356,14 @@
 
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-        <label class="control-label">Scores &amp; Comment:</label>
+        <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores"/>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div ng-bind-html="$ctrl.mainLabelComment"></div>
+          </div>
       </div>
     </div>
 
@@ -396,11 +414,14 @@
 
     <div ng-if="$ctrl.viewOnlyMode" class="widget-box">
       <div ng-class="control-group">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
               <div class="controls">
                 <input type="text" disabled class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores"/>
               </div>
+          <label class="control-label">Comment:</label>
+          <div class="controls">
               <div ng-bind-html="$ctrl.auxComment"></div>
+          </div>
       </div>
     </div>
 
@@ -553,14 +574,17 @@
   <ng-form class="form-horizontal" name="formulation" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || formulation.scores.$touched) && formulation.scores.$error.score}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
           <div class="controls">
               <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.formulationScores" score />
             <div ng-show="$ctrl.assignmentForm.$submitted || formulation.scores.$touched">
               <div ng-show="formulation.scores.$error.required || formulation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
           </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.formulationComment" placeholder="Comment:" contentEditable></div> 
+          </div>
       </div>
     </div>
 
@@ -589,14 +613,17 @@
  <ng-form class="form-horizontal" name="calculation" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || calculation.scores.$touched) && calculation.scores.$error.score}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.calculationScores" score />
             <div ng-show="$ctrl.assignmentForm.$submitted || calculation.scores.$touched">
               <div ng-show="calculation.scores.$error.required || calculation.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.calculationComment" placeholder="Comment:" contentEditable></div> 
+          </div>
       </div>
     </div>
   </ng-form>
@@ -625,14 +652,17 @@
   <ng-form class="form-horizontal" name="method" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || method.scores.$touched) && method.scores.$error.score}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.methodScores" score/>
             <div ng-show="$ctrl.assignmentForm.$submitted || method.scores.$touched">
               <div ng-show="method.scores.$error.required || method.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.methodComment" placeholder="Comment:" contentEditable></div> 
+          </div>
       </div>
     </div>
   </ng-form>
@@ -662,14 +692,17 @@
   <ng-form class="form-horizontal" name="packing" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || packing.scores.$touched) packing.scores.$error.score}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" class="span2" name="scores" placeholder="Scores:" ng-model="$ctrl.packingScores" score/>
             <div ng-show="$ctrl.assignmentForm.$submitted || packing.scores.$touched">
               <div ng-show="packing.scores.$error.required || packing.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
-          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.packingComment" placeholder="Comment:" contentEditable></div> 
+        <label class="control-label">Comment:</label>
+          <div class="controls">
+          <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.packingComment" placeholder="Comment:" contentEditable></div>
+          </div> 
       </div>
     </div>
 
@@ -722,14 +755,17 @@
   <ng-form class="form-horizontal" name="storageLabel" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || storageLabel.scores.$touched) && storageLabel.scores.$error.score}]">
-        <label class="control-label">Scores &amp; Comment:</label>
+        <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.storageScores" score/>
             <div ng-show="$ctrl.assignmentForm.$submitted || storageLabel.scores.$touched">
               <div ng-show="storageLabel.scores.$error.required || storageLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
           <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.storageComment" placeholder="Comment:" contentEditable></div> 
+          </div>
       </div>
     </div>
 
@@ -780,14 +816,17 @@
   <ng-form class="form-horizontal" name="mainLabel" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || mainLabel.scores.$touched) && mainLabel.scores.$error.score}]">
-        <label class="control-label">Scores &amp; Comment:</label>
+        <label class="control-label">Scores:</label>
         <div class="controls">
           <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.mainLabelScores" score/>
             <div ng-show="$ctrl.assignmentForm.$submitted || mainLabel.scores.$touched">
               <div ng-show="mainLabel.scores.$error.required || mainLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
             </div>
         </div>
-        <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.mainLabelComment" placeholder="Comment:" contentEditable></div> 
+        <label class="control-label">Comment:</label>
+          <div class="controls">
+        <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.mainLabelComment" placeholder="Comment:" contentEditable></div>
+        </div> 
       </div>
     </div>
 
@@ -837,7 +876,7 @@
   <ng-form class="form-horizontal" name="auxLabel" novalidate>
     <div ng-if="$ctrl.evaluateMode" class="widget-box">
       <div ng-class="[{'control-group':true},{'error': ($ctrl.assignmentForm.$submitted || auxLabel.scores.$touched) && auxLabel.scores.$error.score}]">
-              <label class="control-label">Scores &amp; Comment:</label>
+              <label class="control-label">Scores:</label>
               
               <div class="controls">
                 <input type="text" class="span4" name="scores" placeholder="Scores:" ng-model="$ctrl.auxScores" score/>
@@ -846,7 +885,10 @@
                   <div ng-show="auxLabel.scores.$error.required || auxLabel.scores.$error.score" class="help-inline">Please provide a score (0~100)</div>
                 </div>
               </div>
+        <label class="control-label">Comment:</label>
+          <div class="controls">
               <div inline-text-editor class="inline-text-editor" ng-model="$ctrl.auxComment" placeholder="Comment:" contentEditable></div> 
+          </div>
       </div>
     </div>
 
