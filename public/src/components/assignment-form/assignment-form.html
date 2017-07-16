@@ -65,8 +65,8 @@
                   <div class="control-group">
                   <div class="controls span12">
 
-                  <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="item.ingredient_name" placeholder="Ingredient" contentEditable style="font-size:10px;"></div>
-                  <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="item.ingredient_name" style="font-size:10px;"></div>      
+                  <div ng-if="!$ctrl.viewOnlyMode" inline-text-editor class="inline-text-editor" ng-model="item.ingredient_name" placeholder="Ingredient" contentEditable></div>
+                  <div ng-if="$ctrl.viewOnlyMode" ng-bind-html="item.ingredient_name"></div>      
                 </div>
               </div>
             </td>
@@ -512,7 +512,7 @@
                   <div class="control-group">
                   <div class="controls span12">  
 
-                  <div ng-bind-html="item.ingredient_name" style="font-size:10px;"></div>      
+                  <div ng-bind-html="item.ingredient_name"></div>      
       
                 </div>
               </div>
