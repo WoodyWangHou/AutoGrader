@@ -45,6 +45,10 @@ hr{ border-top-color:#dadada;}
 .bg_lr{ background:#f74d4d;}
 .bg_lv{ background:#603bbc;}
 .bg_lh{ background:#b6b3b3;}
+/**overwrite bootstrap **/
+.row-fluid [class*="span"]:first-child{
+	min-width:100px;
+}
 
 /* Header */
 #header {
@@ -540,7 +544,8 @@ hr{ border-top-color:#dadada;}
 .widget-title, .modal-header, .table th, div.dataTables_wrapper .ui-widget-header {
 	 background:#efefef;
 	border-bottom: 1px solid #CDCDCD;
-	height: 36px;
+	height: auto;
+	overflow:auto;
 }
 .widget-title .nav-tabs {
 	border-bottom: 0 none;
@@ -578,7 +583,7 @@ hr{ border-top-color:#dadada;}
 .widget-title h5 {
 	color: #666;
 	float: left;
-	font-size: 12px;
+	font-size: 0.9em;
 	font-weight: bold;
 	padding: 12px;
 	line-height: 12px;
@@ -1058,6 +1063,7 @@ div.dataTables_wrapper .ui-widget-header {
 /* Misc */
 .nopadding {
 	padding: 0 !important;
+	overflow:scroll;
 }
 .nopadding .table {
 	margin-bottom: 0;
@@ -1428,6 +1434,14 @@ form {
 	display:block;
 	color: #AAAAAA;
 }
+
+#sidebar > ul > side-bar-menu > li.active a > span.text{ 
+	display:inline;
+}
+#sidebar > ul > side-bar-menu > li > a > span.text{
+	display: inline;
+}
+
 .widget-title .buttons > .btn {
 	width: 11px;
 	white-space: nowrap;
@@ -1490,7 +1504,7 @@ body {
 	display:block;
 }
 #sidebar, #sidebar > ul {
-	width: 43px;
+	width: 144px;
 	display: block;
 	position: absolute;
 	height:100%;
@@ -1534,7 +1548,7 @@ body {
 	display: none;
 }
 #content {
-	margin-left: 43px;
+	margin-left: 144px;
 }
 #sidebar .content{ display:none;}
 }
@@ -1570,6 +1584,7 @@ body {
 #user-nav > ul > li > a > span.text {
 	display: none;
 }
+
 #sidebar .content{ display:none;}
 }
 @media (min-width: 768px) and (max-width: 979px) {
@@ -1577,7 +1592,6 @@ body {
  display: block;
  float: none;
  margin-left: 0;
- width: auto;
 }
 }
 @media (max-width: 979px) {
@@ -1590,4 +1604,10 @@ div.dataTables_wrapper .ui-widget-header {
 	text-align: center;
 }
 #sidebar .content{ display:none;}
+}
+
+@media (min-width: 480px) and (max-width: 767px){
+#sidebar > ul > side-bar-menu > li > a > span.text{
+	display: inline;
+}
 }
