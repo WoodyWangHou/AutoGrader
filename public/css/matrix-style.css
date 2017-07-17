@@ -1150,7 +1150,7 @@ form {
 	min-height:30px;
 }
 .form-horizontal input[type=text], .form-horizontal input[type=password], .form-horizontal textarea {
-	mind-width:100px;
+	min-width:100px;
 }
 .row-fluid .span20 {
 	width:97.8%
