@@ -45,10 +45,6 @@ hr{ border-top-color:#dadada;}
 .bg_lr{ background:#f74d4d;}
 .bg_lv{ background:#603bbc;}
 .bg_lh{ background:#b6b3b3;}
-/**overwrite bootstrap **/
-.row-fluid [class*="span"]:first-child{
-	min-width:100px;
-}
 
 /* Header */
 #header {
@@ -1071,6 +1067,9 @@ div.dataTables_wrapper .ui-widget-header {
 .nopadding .table-bordered {
 	border: 0;
 }
+.pdf {
+	overflow:auto;
+}
 .thumbnails {
 	margin-left: -2.12766% !important;
 }
@@ -1151,6 +1150,7 @@ form {
 	min-height:30px;
 }
 .form-horizontal input[type=text], .form-horizontal input[type=password], .form-horizontal textarea {
+	mind-width:100px;
 }
 .row-fluid .span20 {
 	width:97.8%
